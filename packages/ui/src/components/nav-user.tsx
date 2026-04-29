@@ -44,12 +44,14 @@ export function NavUser({
         <DropdownMenu>
           <DropdownMenuTrigger
             render={
-              <Avatar className="h-10 w-10 rounded-lg">
-                <AvatarImage src={user.avatar} alt={user.name} />
-                <AvatarFallback className="rounded-lg">CN</AvatarFallback>
-              </Avatar>
+              <button className="rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-ring">
+                <Avatar className="h-10 w-10 rounded-lg">
+                  <AvatarImage src={user.avatar} alt={user.name} />
+                  <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                </Avatar>
+              </button>
             }
-          ></DropdownMenuTrigger>
+          />
           <DropdownMenuContent
             className="min-w-56 rounded-lg"
             side={isMobile ? "bottom" : "right"}
