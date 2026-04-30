@@ -1,11 +1,10 @@
 {
-  "endOfLine": "lf",
-  "semi": false,
-  "singleQuote": false,
-  "tabWidth": 2,
-  "trailingComma": "es5",
-  "printWidth": 80,
-  "plugins": ["prettier-plugin-tailwindcss"],
-  "tailwindStylesheet": "packages/ui/src/styles/globals.css",
-  "tailwindFunctions": ["cn", "cva"]
+    "printWidth": 160,
+    "tabWidth": 4,
+    "plugins": ["@trivago/prettier-plugin-sort-imports", "prettier-plugin-tailwindcss"],
+    "tailwindFunctions": ["sortCx", "cx"],
+    "importOrder": ["^react$", "^react-dom$", "^(?!react$|react-dom$|@/|\\.).*", "^@/.*", "^\\.{1,2}/.*"],
+    "importOrderSeparation": false,
+    "importOrderSortSpecifiers": true,
+    "tailwindStylesheet": "./src/styles/globals.css"
 }
