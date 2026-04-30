@@ -177,7 +177,7 @@ const AvatarRadius = ({ avatars = [], ...props }: AvatarRadiusProps) => {
                         className={cx("absolute top-1/2 left-1/2 rounded-full bg-primary p-px shadow-xs ring-[0.5px] ring-black/10", slot.size)}
                         style={{ transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))` }}
                     >
-                        <img src={avatar.src} alt="" className="size-full rounded-full object-cover outline-[0.5px] -outline-offset-[0.5px] outline-black/16" />
+                        <img src={avatar.src} alt="" className="size-full rounded-full object-cover outline-[0.5px] outline-offset-[-0.5px] outline-black/16" />
                     </div>
                 );
             })}
@@ -209,7 +209,7 @@ const AvatarRow = ({ avatars = [], children, ...props }: AvatarRowProps) => {
         <div
             key={key}
             className={cx(
-                "relative shrink-0 overflow-hidden outline-[0.5px] -outline-offset-[0.5px] outline-black/16 before:absolute before:inset-0 before:rounded-[inherit] before:border before:border-white/32 before:mask-[linear-gradient(to_bottom,black_0%,transparent_25%,transparent_75%,black_100%)]",
+                "relative shrink-0 overflow-hidden outline-[0.5px] outline-offset-[-0.5px] outline-black/16 before:absolute before:inset-0 before:rounded-[inherit] before:border before:border-white/32 before:mask-[linear-gradient(to_bottom,black_0%,transparent_25%,transparent_75%,black_100%)]",
                 sizeClass,
             )}
         >
@@ -266,7 +266,7 @@ const AvatarGrid = ({ avatars = [], ...props }: AvatarGridProps) => {
         <div key={key} className={cx("shrink-0 bg-primary p-px shadow-xs ring-[0.75px] ring-black/10", config.avatar)}>
             <div
                 className={cx(
-                    "relative size-full overflow-hidden outline-[0.5px] -outline-offset-[0.5px] outline-black/16 before:absolute before:inset-0 before:rounded-[inherit] before:border before:border-white/32 before:mask-[linear-gradient(to_bottom,black_0%,transparent_25%,transparent_75%,black_100%)]",
+                    "relative size-full overflow-hidden outline-[0.5px] outline-offset-[-0.5px] outline-black/16 before:absolute before:inset-0 before:rounded-[inherit] before:border before:border-white/32 before:mask-[linear-gradient(to_bottom,black_0%,transparent_25%,transparent_75%,black_100%)]",
                     config.inner,
                 )}
             >

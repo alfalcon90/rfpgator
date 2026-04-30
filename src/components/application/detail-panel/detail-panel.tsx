@@ -33,7 +33,7 @@ interface HeaderProps extends ComponentPropsWithRef<"header"> {
 const Header = ({ className, children, onClose, ...props }: HeaderProps) => {
     return (
         <header {...props} className={cx("flex items-start gap-4 border-b border-secondary p-6", className)}>
-            {onClose && <CloseButton size="sm" onPress={onClose} />}
+            {onClose && <CloseButton size="lg" onPress={onClose} />}
             {children}
         </header>
     );

@@ -1,16 +1,9 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
 import { RouteProvider } from "@/providers/router-provider";
 import { Theme } from "@/providers/theme";
 import { Toaster } from "@/components/application/notifications/toaster";
 import "@/styles/globals.css";
 import { cx } from "@/utils/cx";
-
-const inter = Inter({
-    subsets: ["latin"],
-    display: "swap",
-    variable: "--font-inter",
-});
 
 export const metadata: Metadata = {
     title: "RFP Gator",
@@ -29,7 +22,15 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en" suppressHydrationWarning>
-            <body className={cx(inter.variable, "bg-primary antialiased")}>
+            <head>
+                <link rel="preconnect" href="https://api.fontshare.com" />
+                <link rel="preconnect" href="https://cdn.fontshare.com" crossOrigin="" />
+                <link
+                    href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap"
+                    rel="stylesheet"
+                />
+            </head>
+            <body className={cx("bg-primary antialiased")}>
                 <RouteProvider>
                     <Theme>
                         <Toaster />

@@ -104,8 +104,8 @@ export function RfpListPage({ title, subtitle, rfps }: RfpListPageProps) {
                     <div className="relative flex flex-col gap-5">
                         <div className="flex flex-col gap-4 lg:flex-row">
                             <div className="flex flex-1 flex-col gap-0.5">
-                                <p className="text-lg font-semibold text-primary">{title}</p>
-                                <p className="text-sm text-tertiary">{subtitle}</p>
+                                <p className="text-lg font-bold text-primary">{title}</p>
+                                <p className="text-sm font-medium text-tertiary">{subtitle}</p>
                             </div>
                             <div className="flex flex-col gap-4 lg:flex-row">
                                 <div className="flex items-start gap-3">
@@ -179,8 +179,8 @@ export function RfpListPage({ title, subtitle, rfps }: RfpListPageProps) {
                         <DetailPanel.Header onClose={handleDeselect}>
                             <div className="flex w-full items-start justify-between">
                                 <div className="flex flex-col gap-1">
-                                    <h2 className="text-lg font-semibold text-primary">{selectedRfp.title}</h2>
-                                    <p className="text-sm text-tertiary">{selectedRfp.agency}</p>
+                                    <h2 className="text-lg font-bold text-primary">{selectedRfp.title}</h2>
+                                    <p className="text-sm font-medium text-tertiary">{selectedRfp.agency}</p>
                                 </div>
                                 <div className="flex items-center gap-2">
                                     <Button iconLeading={Star01} color="secondary" size="sm" shortcut="Y" onClick={() => handleStatusChange(Status.Saved)}>
@@ -202,7 +202,7 @@ export function RfpListPage({ title, subtitle, rfps }: RfpListPageProps) {
                             <div className="flex flex-col gap-6">
                                 <section>
                                     <h3 className="text-sm font-medium text-secondary">Description</h3>
-                                    <p className="mt-1 text-sm leading-relaxed text-tertiary">{selectedRfp.description}</p>
+                                    <p className="mt-1 text-sm leading-relaxed font-medium text-tertiary">{selectedRfp.description}</p>
                                 </section>
                                 <section>
                                     <h3 className="text-sm font-medium text-secondary">Due Date</h3>
