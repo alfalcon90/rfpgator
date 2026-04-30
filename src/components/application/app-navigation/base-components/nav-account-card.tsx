@@ -2,11 +2,17 @@
 
 import type { FC, HTMLAttributes } from "react";
 import { useCallback, useEffect, useRef } from "react";
-import type { Placement } from "react-aria-components";
 import { BookOpen01, ChevronSelectorVertical, LogOut01, Plus, Settings01, User01 } from "@untitledui/icons";
 import { useFocusManager } from "react-aria";
+import type { Placement } from "react-aria-components";
 import type { DialogProps as AriaDialogProps } from "react-aria-components";
-import { Button as AriaButton, Dialog as AriaDialog, DialogTrigger as AriaDialogTrigger, Popover as AriaPopover } from "react-aria-components";
+import {
+    Button as AriaButton,
+    Dialog as AriaDialog,
+    DialogTrigger as AriaDialogTrigger,
+    Link as AriaLink,
+    Popover as AriaPopover,
+} from "react-aria-components";
 import { AvatarLabelGroup } from "@/components/base/avatar/avatar-label-group";
 import { Button } from "@/components/base/buttons/button";
 import { RadioButtonBase } from "@/components/base/radio-buttons/radio-buttons";
@@ -117,7 +123,7 @@ export const NavAccountMenu = ({
             </div>
 
             <div className="pt-1 pb-1.5">
-                <NavAccountCardMenuItem label="Sign out" icon={LogOut01} shortcut="⌥⇧Q" />
+                <NavAccountCardMenuItem label="Sign out" icon={LogOut01} shortcut="⌥⇧Q" href="/login" />
             </div>
         </AriaDialog>
     );
@@ -127,29 +133,51 @@ const NavAccountCardMenuItem = ({
     icon: Icon,
     label,
     shortcut,
+    href,
     ...buttonProps
 }: {
     icon?: FC<{ className?: string }>;
     label: string;
     shortcut?: string;
+    href?: string;
 } & HTMLAttributes<HTMLButtonElement>) => {
-    return (
-        <button {...buttonProps} className={cx("group/item w-full cursor-pointer px-1.5 focus:outline-hidden", buttonProps.className)}>
-            <div
+    const row = (
+        <div
+            className={cx(
+                "flex w-full items-center justify-between gap-3 rounded-md p-2 group-hover/item:bg-primary_hover",
+                "outline-focus-ring group-focus-visible/item:outline-2 group-focus-visible/item:outline-offset-2",
+            )}
+        >
+            <div className="flex gap-2 text-sm font-semibold text-secondary group-hover/item:text-secondary_hover">
+                {Icon && <Icon className="size-5 text-fg-quaternary group-hover/item:text-fg-quaternary_hover" />} {label}
+            </div>
+
+            {shortcut && <kbd className="flex rounded px-1 py-px font-body text-xs font-medium text-tertiary ring-1 ring-secondary ring-inset">{shortcut}</kbd>}
+        </div>
+    );
+
+    const rootClass = cx(
+        "group/item flex w-full cursor-pointer items-center border-0 bg-transparent px-1.5 text-left font-inherit text-inherit focus:outline-hidden",
+        buttonProps.className,
+    );
+
+    if (href) {
+        return (
+            <AriaLink
+                href={href}
                 className={cx(
-                    "flex w-full items-center justify-between gap-3 rounded-md p-2 group-hover/item:bg-primary_hover",
-                    // Focus styles.
-                    "outline-focus-ring group-focus-visible/item:outline-2 group-focus-visible/item:outline-offset-2",
+                    rootClass,
+                    "no-underline outline-focus-ring focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-offset-2",
                 )}
             >
-                <div className="flex gap-2 text-sm font-semibold text-secondary group-hover/item:text-secondary_hover">
-                    {Icon && <Icon className="size-5 text-fg-quaternary group-hover/item:text-fg-quaternary_hover" />} {label}
-                </div>
+                {row}
+            </AriaLink>
+        );
+    }
 
-                {shortcut && (
-                    <kbd className="flex rounded px-1 py-px font-body text-xs font-medium text-tertiary ring-1 ring-secondary ring-inset">{shortcut}</kbd>
-                )}
-            </div>
+    return (
+        <button type="button" {...buttonProps} className={rootClass}>
+            {row}
         </button>
     );
 };
