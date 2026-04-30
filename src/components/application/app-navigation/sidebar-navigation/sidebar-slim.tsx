@@ -2,11 +2,9 @@
 
 import type { FC } from "react";
 import { useState } from "react";
-import { DotsVertical, LifeBuoy01, Settings01 } from "@untitledui/icons";
-import { AnimatePresence, motion } from "motion/react";
+import { LifeBuoy01, Settings01 } from "@untitledui/icons";
 import { Button as AriaButton, DialogTrigger as AriaDialogTrigger, Popover as AriaPopover } from "react-aria-components";
 import { Avatar } from "@/components/base/avatar/avatar";
-import { ButtonUtility } from "@/components/base/buttons/button-utility";
 import { UntitledLogo } from "@/components/foundations/logo/untitledui-logo";
 import { UntitledLogoMinimal } from "@/components/foundations/logo/untitledui-logo-minimal";
 import { cx } from "@/utils/cx";
@@ -30,37 +28,30 @@ interface SidebarNavigationSlimProps {
     hideRightBorder?: boolean;
 }
 
-export const SidebarNavigationSlim = ({ activeUrl, items, footerItems = [], hideBorder, hideRightBorder }: SidebarNavigationSlimProps) => {
+export const SidebarNavigationSlim = ({ activeUrl, items, footerItems = [], hideBorder }: SidebarNavigationSlimProps) => {
     const activeItem = [...items, ...footerItems].find((item) => item.href === activeUrl || item.items?.some((subItem) => subItem.href === activeUrl));
     const [currentItem, setCurrentItem] = useState(activeItem || items[1]);
-    const [isHovering, setIsHovering] = useState(false);
 
-    const isSecondarySidebarVisible = isHovering && Boolean(currentItem.items?.length);
-
-    const MAIN_SIDEBAR_WIDTH = 68;
-    const SECONDARY_SIDEBAR_WIDTH = 256;
+    const MAIN_SIDEBAR_WIDTH = 80;
 
     const mainSidebar = (
         <aside
             style={{
                 width: MAIN_SIDEBAR_WIDTH,
             }}
-            className={cx(
-                "group flex h-full max-h-full max-w-full overflow-y-auto py-1 pl-1 transition duration-100 ease-linear",
-                isSecondarySidebarVisible && "bg-primary",
-            )}
+            className={cx("group flex h-full max-h-full max-w-full overflow-y-visible p-2 transition duration-100 ease-linear")}
         >
             <div
                 className={cx(
-                    "flex w-auto flex-col justify-between rounded-xl bg-primary pt-5 ring-1 ring-secondary transition duration-300 ring-inset",
-                    hideBorder && !isSecondarySidebarVisible && "ring-transparent",
+                    "flex w-auto flex-col justify-between rounded-xl bg-brand-solid pt-5 shadow-xl shadow-bg-brand-solid transition duration-300 ring-inset",
+                    hideBorder && "ring-transparent",
                 )}
             >
                 <div className="flex justify-center px-3">
                     <UntitledLogoMinimal className="size-6" />
                 </div>
 
-                <ul className="mt-5 flex flex-col gap-0.5 px-3.5">
+                <ul className="mt-5 flex flex-col items-center gap-0.5">
                     {items.map((item) => (
                         <li key={item.label}>
                             <NavButton
@@ -96,13 +87,7 @@ export const SidebarNavigationSlim = ({ activeUrl, items, footerItems = [], hide
                                 cx("group relative inline-flex rounded-full", (isPressed || isFocused) && "outline-2 outline-offset-2 outline-focus-ring")
                             }
                         >
-                            <Avatar
-                                border
-                                status="online"
-                                src="https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80"
-                                size="md"
-                                alt="Olivia Rhye"
-                            />
+                            <Avatar border src="https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80" size="md" alt="Olivia Rhye" />
                         </AriaButton>
                         <AriaPopover
                             placement="right bottom"
@@ -126,56 +111,10 @@ export const SidebarNavigationSlim = ({ activeUrl, items, footerItems = [], hide
         </aside>
     );
 
-    const secondarySidebar = (
-        <AnimatePresence initial={false}>
-            {isSecondarySidebarVisible && (
-                <motion.div
-                    initial={{ width: 0, borderColor: "var(--color-border-secondary)" }}
-                    animate={{ width: SECONDARY_SIDEBAR_WIDTH, borderColor: "var(--color-border-secondary)" }}
-                    exit={{ width: 0, borderColor: "rgba(0,0,0,0)", transition: { borderColor: { type: "tween", delay: 0.05 } } }}
-                    transition={{ type: "spring", damping: 26, stiffness: 220, bounce: 0 }}
-                    className={cx(
-                        "relative h-full overflow-x-hidden overflow-y-auto bg-primary",
-                        !(hideBorder || hideRightBorder) && "box-content border-r-[1.5px]",
-                    )}
-                >
-                    <div style={{ width: SECONDARY_SIDEBAR_WIDTH }} className="flex h-full flex-col px-4 pt-6">
-                        <h3 className="text-sm font-semibold text-brand-secondary">{currentItem.label}</h3>
-                        <ul className="py-2">
-                            {currentItem.items?.map((item) => (
-                                <li key={item.label} className="py-px">
-                                    <NavItemBase current={activeUrl === item.href} href={item.href} icon={item.icon} badge={item.badge} type="link">
-                                        {item.label}
-                                    </NavItemBase>
-                                </li>
-                            ))}
-                        </ul>
-                        <div className="sticky bottom-0 mt-auto flex justify-between bg-primary pb-5">
-                            <div>
-                                <p className="text-sm font-semibold text-primary">Olivia Rhye</p>
-                                <p className="text-sm text-tertiary">olivia@untitledui.com</p>
-                            </div>
-                            <div className="absolute -top-1 right-0">
-                                <ButtonUtility size="xs" color="tertiary" tooltip="Log out" icon={DotsVertical} />
-                            </div>
-                        </div>
-                    </div>
-                </motion.div>
-            )}
-        </AnimatePresence>
-    );
-
     return (
         <>
             {/* Desktop sidebar navigation */}
-            <div
-                className="z-50 hidden lg:fixed lg:inset-y-0 lg:left-0 lg:flex"
-                onPointerEnter={() => setIsHovering(true)}
-                onPointerLeave={() => setIsHovering(false)}
-            >
-                {mainSidebar}
-                {secondarySidebar}
-            </div>
+            <div className="z-50 hidden lg:fixed lg:inset-y-0 lg:left-0 lg:flex">{mainSidebar}</div>
 
             {/* Placeholder to take up physical space because the real sidebar has `fixed` position. */}
             <div
