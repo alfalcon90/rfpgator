@@ -136,27 +136,27 @@ export function RfpListPage({ title, subtitle, rfps }: RfpListPageProps) {
                                 {(rfp) => {
                                     const isSelected = rfp.id === selectedRfpId;
                                     return (
-                                        <Table.Row id={rfp.id} className={cx("cursor-pointer", isSelected && "bg-brand-secondary hover:bg-brand-secondary")}>
+                                        <Table.Row id={rfp.id} className={cx("cursor-pointer", isSelected && "bg-brand-solid/10 hover:bg-brand-solid/20")}>
                                             <Table.Cell
                                                 className={cx(
                                                     "w-[320px] max-w-[320px] min-w-0 align-top",
-                                                    isSelected && "before:absolute before:inset-y-0 before:left-0 before:w-1 before:bg-fg-brand-primary",
+                                                    isSelected && "before:absolute before:inset-y-0 before:left-0 before:w-1 before:bg-brand-solid",
                                                 )}
                                             >
                                                 <div className="flex max-w-full min-w-0 flex-col gap-1">
                                                     <div className="flex min-w-0 items-start justify-between gap-2">
-                                                        <span className="min-w-0 leading-snug font-medium wrap-break-word whitespace-normal text-primary">
+                                                        <span className="min-w-0 leading-snug font-bold wrap-break-word whitespace-normal text-primary">
                                                             {rfp.title}
                                                         </span>
                                                         <Badge type="modern" color="gray" size="sm" className="shrink-0">
                                                             {getDueDaysLabel(rfp.dueDate)}
                                                         </Badge>
                                                     </div>
-                                                    <span className="text-xs">{rfp.agency}</span>
+                                                    <span className="text-sm font-medium text-tertiary">{rfp.agency}</span>
                                                 </div>
                                             </Table.Cell>
                                             <Table.Cell className="align-top">
-                                                <p className="max-w-xl leading-snug whitespace-normal">{rfp.description}</p>
+                                                <p className="max-w-xl text-sm leading-snug font-medium whitespace-normal text-tertiary">{rfp.description}</p>
                                             </Table.Cell>
                                         </Table.Row>
                                     );

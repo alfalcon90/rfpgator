@@ -42,9 +42,7 @@ export const NavButton = ({ current, label, href, icon: Icon, className, tooltip
                     className,
                 )}
             >
-                {Icon && (
-                    <Icon aria-hidden="true" className={cx("size-5 shrink-0 text-fg-primary transition-inherit-all", current && "text-fg-brand-primary")} />
-                )}
+                {Icon && <Icon aria-hidden="true" className={cx("size-5 shrink-0 text-dark transition-inherit-all", current && "text-fg-brand-primary")} />}
 
                 {children && (
                     <span
