@@ -32,18 +32,18 @@ export const SidebarNavigationSlim = ({ activeUrl, items, footerItems = [], hide
     const activeItem = [...items, ...footerItems].find((item) => item.href === activeUrl || item.items?.some((subItem) => subItem.href === activeUrl));
     const [currentItem, setCurrentItem] = useState(activeItem || items[1]);
 
-    const MAIN_SIDEBAR_WIDTH = 80;
+    const MAIN_SIDEBAR_WIDTH = 64;
 
     const mainSidebar = (
         <aside
             style={{
                 width: MAIN_SIDEBAR_WIDTH,
             }}
-            className={cx("group flex h-full max-h-full max-w-full overflow-y-visible p-2 transition duration-100 ease-linear")}
+            className={cx("group flex h-full max-h-full max-w-full overflow-y-visible transition duration-100 ease-linear")}
         >
             <div
                 className={cx(
-                    "flex w-auto flex-col justify-between rounded-xl bg-brand-solid pt-5 shadow-xl shadow-bg-brand-solid transition duration-300 ring-inset",
+                    "flex w-auto flex-col justify-between bg-brand-solid pt-5 shadow-xl shadow-bg-brand-solid transition duration-300 ring-inset",
                     hideBorder && "ring-transparent",
                 )}
             >

@@ -127,10 +127,10 @@ export function RfpListPage({ title, subtitle, rfps }: RfpListPageProps) {
                             sortDescriptor={sortDescriptor}
                             onSortChange={setSortDescriptor}
                             onRowAction={(key) => setSelectedRfpId(String(key))}
-                            className="table-fixed bg-primary [&_td]:focus-visible:outline-0"
+                            className="table-fixed bg-primary"
                         >
                             <Table.Header className="bg-secondary">
-                                <Table.Head id="title" isRowHeader label="Name" className="w-[320px] max-w-[320px] font-bold" />
+                                <Table.Head id="title" isRowHeader label="Name" className="w-[380px] font-bold" />
                                 <Table.Head id="description" label="Description" className="w-full min-w-0 font-bold" />
                             </Table.Header>
                             <Table.Body items={sortedItems} dependencies={[selectedRfpId]}>
@@ -140,7 +140,7 @@ export function RfpListPage({ title, subtitle, rfps }: RfpListPageProps) {
                                         <Table.Row id={rfp.id} className={cx("cursor-pointer", isSelected && "bg-brand-solid/10 hover:bg-brand-solid/20")}>
                                             <Table.Cell
                                                 className={cx(
-                                                    "w-[320px] max-w-[320px] min-w-0 align-top",
+                                                    "w-[380px] min-w-0 align-top",
                                                     isSelected && "before:absolute before:inset-y-0 before:left-0 before:w-1 before:bg-brand-solid",
                                                 )}
                                             >
@@ -157,7 +157,7 @@ export function RfpListPage({ title, subtitle, rfps }: RfpListPageProps) {
                                                 </div>
                                             </Table.Cell>
                                             <Table.Cell className="align-top">
-                                                <p className="max-w-xl text-sm leading-snug font-medium whitespace-normal text-tertiary">{rfp.description}</p>
+                                                <p className="text-sm leading-snug font-medium whitespace-normal text-tertiary">{rfp.description}</p>
                                             </Table.Cell>
                                         </Table.Row>
                                     );
