@@ -150,6 +150,8 @@ export interface CommonProps {
     noTextPadding?: boolean;
     /** When true, keeps the text visible during loading state */
     showTextWhileLoading?: boolean;
+    /** Keyboard shortcut hint displayed as a badge after the text. Pass `true` for default or a string for a custom label. */
+    shortcut?: string | boolean;
 }
 
 /**
@@ -182,6 +184,7 @@ export const Button = ({
     isDisabled: disabled,
     isLoading: loading,
     showTextWhileLoading,
+    shortcut,
     ...otherProps
 }: Props) => {
     const href = "href" in otherProps ? otherProps.href : undefined;
@@ -257,6 +260,12 @@ export const Button = ({
                 <span data-text className={cx("transition-inherit-all", !noTextPadding && "px-0.5")}>
                     {children}
                 </span>
+            )}
+
+            {shortcut && (
+                <kbd className="pointer-events-none rounded px-1.5 py-px text-xs font-medium opacity-60 ring-1 ring-current/20 select-none ring-inset">
+                    {typeof shortcut === "string" ? shortcut : "⌘"}
+                </kbd>
             )}
 
             {/* Trailing icon */}

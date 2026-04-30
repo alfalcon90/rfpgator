@@ -1,23 +1,31 @@
 "use client";
 
 import { useCallback, useMemo, useState } from "react";
-import { HomeLine, Inbox01, LifeBuoy01, SearchLg, Settings01, Settings04, Star01, XSquare } from "@untitledui/icons";
+import { SearchLg, Settings04, Star01, XSquare } from "@untitledui/icons";
 import type { SortDescriptor } from "react-aria-components";
-import { SidebarNavigationSlim } from "@/components/application/app-navigation/sidebar-navigation/sidebar-slim";
+import { toast } from "sonner";
 import { DetailPanel } from "@/components/application/detail-panel/detail-panel";
 import { renderFilterRow, useFilterState } from "@/components/application/filter-bar/filter-bar.demo";
 import { FilterDropdown } from "@/components/application/filter-bar/filter-dropdown-menu";
+import { IconNotification } from "@/components/application/notifications/notifications";
 import { PaginationCardDefault, PaginationPageMinimalCenter } from "@/components/application/pagination/pagination";
 import { Table, TableCard } from "@/components/application/table/table";
 import { Badge } from "@/components/base/badges/badges";
 import { Button } from "@/components/base/buttons/button";
 import { Input } from "@/components/base/input/input";
-import { mockRfps } from "@/data/mock-rfps";
-import { useListKeyboardNav } from "@/hooks/use-list-keyboard-nav";
+import { useUpdateRfpStatus } from "@/data/rfp-store";
+import { useShortcuts } from "@/hooks/use-shortcuts";
+import { type Rfp, Status } from "@/types/rfp";
 import { cx } from "@/utils/cx";
 import { getDueDaysLabel } from "@/utils/date";
 
-export default function Home() {
+interface RfpListPageProps {
+    title: string;
+    subtitle: string;
+    rfps: Rfp[];
+}
+
+export function RfpListPage({ title, subtitle, rfps }: RfpListPageProps) {
     const filterState = useFilterState();
     const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>({
         column: "deliveryDate",
@@ -26,9 +34,9 @@ export default function Home() {
     const [selectedRfpId, setSelectedRfpId] = useState<string | null>(null);
 
     const sortedItems = useMemo(() => {
-        if (!sortDescriptor) return mockRfps;
+        if (!sortDescriptor) return rfps;
 
-        return mockRfps.toSorted((a, b) => {
+        return rfps.toSorted((a, b) => {
             const first = a[sortDescriptor.column as keyof typeof a];
             const second = b[sortDescriptor.column as keyof typeof b];
 
@@ -43,7 +51,7 @@ export default function Home() {
 
             return 0;
         });
-    }, [sortDescriptor]);
+    }, [rfps, sortDescriptor]);
 
     const selectedRfp = useMemo(() => {
         if (!selectedRfpId) return null;
@@ -51,31 +59,53 @@ export default function Home() {
     }, [selectedRfpId, sortedItems]);
 
     const handleDeselect = useCallback(() => setSelectedRfpId(null), []);
+    const updateRfpStatus = useUpdateRfpStatus();
 
-    useListKeyboardNav({ items: sortedItems, selectedId: selectedRfpId, onSelect: setSelectedRfpId });
+    const handleStatusChange = useCallback(
+        (status: Status) => {
+            if (!selectedRfpId || !selectedRfp) return;
+            const rfpTitle = selectedRfp.title;
+            const currentIndex = sortedItems.findIndex((r) => r.id === selectedRfpId);
+
+            updateRfpStatus(selectedRfpId, status);
+
+            // Advance to the next item, or the previous one, or close if list is now empty
+            const remaining = sortedItems.filter((r) => r.id !== selectedRfpId);
+            if (remaining.length === 0) {
+                setSelectedRfpId(null);
+            } else {
+                const nextIndex = Math.min(currentIndex, remaining.length - 1);
+                setSelectedRfpId(remaining[nextIndex].id);
+            }
+
+            const label = status === Status.Saved ? "Saved" : "Ignored";
+            const color = status === Status.Saved ? "success" : ("gray" as const);
+            toast.custom((id) => (
+                <IconNotification title={`RFP ${label}`} description={rfpTitle} color={color} hideDismissLabel onClose={() => toast.dismiss(id)} />
+            ));
+        },
+        [selectedRfpId, selectedRfp, sortedItems, updateRfpStatus],
+    );
+
+    const shortcuts = useMemo(
+        () => [
+            { key: "y", action: () => handleStatusChange(Status.Saved) },
+            { key: "n", action: () => handleStatusChange(Status.Ignored) },
+        ],
+        [handleStatusChange],
+    );
+
+    useShortcuts({ items: sortedItems, selectedId: selectedRfpId, onSelect: setSelectedRfpId, shortcuts });
 
     return (
-        <div className="flex flex-col lg:flex-row">
-            <SidebarNavigationSlim
-                activeUrl="/"
-                items={[
-                    { label: "Home", href: "/", icon: HomeLine },
-                    { label: "Inbox", href: "/inbox", icon: Inbox01 },
-                    { label: "Saved", href: "/saved", icon: Star01 },
-                    { label: "Ignored", href: "/ignored", icon: XSquare },
-                ]}
-                footerItems={[
-                    { label: "Support", href: "/support", icon: LifeBuoy01 },
-                    { label: "Settings", href: "/settings", icon: Settings01 },
-                ]}
-            />
+        <>
             <main className="min-w-0 flex-1 bg-secondary pt-8 pb-12 shadow-none lg:bg-primary">
                 <div className="mx-auto mb-8 flex flex-col gap-5 px-4 lg:px-8">
                     <div className="relative flex flex-col gap-5">
                         <div className="flex flex-col gap-4 lg:flex-row">
                             <div className="flex flex-1 flex-col gap-0.5">
-                                <p className="text-lg font-semibold text-primary">Inbox</p>
-                                <p className="text-sm text-tertiary">View the RFPs that are relevant to you.</p>
+                                <p className="text-lg font-semibold text-primary">{title}</p>
+                                <p className="text-sm text-tertiary">{subtitle}</p>
                             </div>
                             <div className="flex flex-col gap-4 lg:flex-row">
                                 <div className="flex items-start gap-3">
@@ -92,7 +122,7 @@ export default function Home() {
                 <div className="mx-auto flex flex-col px-4 lg:gap-6 lg:px-8">
                     <TableCard.Root className="-mx-4 rounded-none shadow-xs lg:mx-0 lg:rounded-xl">
                         <Table
-                            aria-label="Trades"
+                            aria-label="RFPs"
                             sortDescriptor={sortDescriptor}
                             onSortChange={setSortDescriptor}
                             onRowAction={(key) => setSelectedRfpId(String(key))}
@@ -147,9 +177,25 @@ export default function Home() {
                 {selectedRfp && (
                     <>
                         <DetailPanel.Header onClose={handleDeselect}>
-                            <div className="flex flex-col gap-1">
-                                <h2 className="text-lg font-semibold text-primary">{selectedRfp.title}</h2>
-                                <p className="text-sm text-tertiary">{selectedRfp.agency}</p>
+                            <div className="flex w-full items-start justify-between">
+                                <div className="flex flex-col gap-1">
+                                    <h2 className="text-lg font-semibold text-primary">{selectedRfp.title}</h2>
+                                    <p className="text-sm text-tertiary">{selectedRfp.agency}</p>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <Button iconLeading={Star01} color="secondary" size="sm" shortcut="Y" onClick={() => handleStatusChange(Status.Saved)}>
+                                        Save
+                                    </Button>
+                                    <Button
+                                        color="secondary-destructive"
+                                        iconLeading={XSquare}
+                                        size="sm"
+                                        shortcut="N"
+                                        onClick={() => handleStatusChange(Status.Ignored)}
+                                    >
+                                        Ignore
+                                    </Button>
+                                </div>
                             </div>
                         </DetailPanel.Header>
                         <DetailPanel.Content>
@@ -176,6 +222,6 @@ export default function Home() {
                     </>
                 )}
             </DetailPanel>
-        </div>
+        </>
     );
 }
