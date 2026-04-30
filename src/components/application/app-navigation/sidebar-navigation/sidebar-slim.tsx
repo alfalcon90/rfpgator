@@ -114,7 +114,7 @@ export const SidebarNavigationSlim = ({ activeUrl, items, footerItems = [], hide
     return (
         <>
             {/* Desktop sidebar navigation */}
-            <div className="z-50 hidden lg:fixed lg:inset-y-0 lg:left-0 lg:flex">{mainSidebar}</div>
+            <div className="z-1 hidden lg:fixed lg:inset-y-0 lg:left-0 lg:flex">{mainSidebar}</div>
 
             {/* Placeholder to take up physical space because the real sidebar has `fixed` position. */}
             <div
