@@ -1,16 +1,17 @@
 "use client";
 
 import { useCallback, useMemo, useState } from "react";
-import { SearchLg, Settings04, Star01, XSquare } from "@untitledui/icons";
+import { CalendarCheck01, LinkExternal01, Mail01, MarkerPin01, Phone, SearchLg, Settings04, Star01, User01, XSquare } from "@untitledui/icons";
 import type { SortDescriptor } from "react-aria-components";
 import { toast } from "sonner";
 import { DetailPanel } from "@/components/application/detail-panel/detail-panel";
+import { FileTable } from "@/components/application/file-table";
 import { renderFilterRow, useFilterState } from "@/components/application/filter-bar/filter-bar.demo";
 import { FilterDropdown } from "@/components/application/filter-bar/filter-dropdown-menu";
 import { IconNotification } from "@/components/application/notifications/notifications";
 import { PaginationCardDefault, PaginationPageMinimalCenter } from "@/components/application/pagination/pagination";
 import { Table, TableCard } from "@/components/application/table/table";
-import { Badge } from "@/components/base/badges/badges";
+import { Badge, BadgeWithDot } from "@/components/base/badges/badges";
 import { Button } from "@/components/base/buttons/button";
 import { Input } from "@/components/base/input/input";
 import { useUpdateRfpStatus } from "@/data/rfp-store";
@@ -129,8 +130,8 @@ export function RfpListPage({ title, subtitle, rfps }: RfpListPageProps) {
                             className="table-fixed bg-primary [&_td]:focus-visible:outline-0"
                         >
                             <Table.Header className="bg-secondary">
-                                <Table.Head id="title" isRowHeader label="Name" className="w-[320px] max-w-[320px]" />
-                                <Table.Head id="description" label="Description" className="w-full min-w-0" />
+                                <Table.Head id="title" isRowHeader label="Name" className="w-[320px] max-w-[320px] font-bold" />
+                                <Table.Head id="description" label="Description" className="w-full min-w-0 font-bold" />
                             </Table.Header>
                             <Table.Body items={sortedItems} dependencies={[selectedRfpId]}>
                                 {(rfp) => {
@@ -199,24 +200,199 @@ export function RfpListPage({ title, subtitle, rfps }: RfpListPageProps) {
                             </div>
                         </DetailPanel.Header>
                         <DetailPanel.Content>
-                            <div className="flex flex-col gap-6">
-                                <section>
-                                    <h3 className="text-sm font-medium text-secondary">Description</h3>
-                                    <p className="mt-1 text-sm leading-relaxed font-medium text-tertiary">{selectedRfp.description}</p>
-                                </section>
-                                <section>
-                                    <h3 className="text-sm font-medium text-secondary">Due Date</h3>
-                                    <p className="mt-1 text-sm text-tertiary">
-                                        {selectedRfp.dueDate.toLocaleDateString("en-US", {
-                                            year: "numeric",
-                                            month: "long",
-                                            day: "numeric",
-                                        })}
-                                    </p>
-                                </section>
-                                <div className="rounded-lg border border-secondary bg-secondary p-4">
-                                    <p className="text-sm text-tertiary">More details and actions will appear here.</p>
+                            <div className="flex flex-col gap-8">
+                                <div className="flex items-center justify-between gap-2">
+                                    {/* Meta badges row */}
+                                    <div className="flex flex-wrap items-center gap-2">
+                                        {selectedRfp.solicitationKind && (
+                                            <Badge type="pill-color" color="brand" size="sm">
+                                                {selectedRfp.solicitationKind}
+                                            </Badge>
+                                        )}
+                                        {selectedRfp.solicitationNumber && (
+                                            <Badge type="modern" color="gray" size="sm">
+                                                {selectedRfp.solicitationNumber}
+                                            </Badge>
+                                        )}
+                                        {selectedRfp.jurisdiction && (
+                                            <Badge type="modern" color="gray" size="sm">
+                                                <MarkerPin01 className="mr-1 inline size-3" />
+                                                {selectedRfp.jurisdiction}
+                                            </Badge>
+                                        )}
+                                    </div>
+
+                                    {/* Submission link */}
+                                    {selectedRfp.submissionUrl && (
+                                        <section>
+                                            <Button href={selectedRfp.submissionUrl} color="link-color" size="sm" iconTrailing={LinkExternal01}>
+                                                Submission portal
+                                            </Button>
+                                        </section>
+                                    )}
                                 </div>
+
+                                {/* Description */}
+                                <section>
+                                    <h3 className="text-sm font-bold text-primary">Description</h3>
+                                    <p className="mt-2 text-sm leading-relaxed font-medium text-tertiary">{selectedRfp.description}</p>
+                                </section>
+
+                                {/* Categories */}
+                                {selectedRfp.categories && selectedRfp.categories.length > 0 && (
+                                    <section>
+                                        <h3 className="text-sm font-bold text-primary">Categories</h3>
+                                        <div className="mt-2 flex flex-wrap gap-1.5">
+                                            {selectedRfp.categories.map((cat) => (
+                                                <Badge key={cat} type="pill-color" color="gray" size="sm">
+                                                    {cat}
+                                                </Badge>
+                                            ))}
+                                        </div>
+                                    </section>
+                                )}
+
+                                {/* Key dates card */}
+                                <section className="rounded-xl border border-secondary p-4">
+                                    <h3 className="flex items-center gap-2 text-sm font-bold text-primary">
+                                        <CalendarCheck01 className="size-4 text-fg-quaternary" />
+                                        Key Dates
+                                    </h3>
+                                    <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-3">
+                                        <div>
+                                            <dt className="text-xs font-medium text-quaternary">Response Due</dt>
+                                            <dd className="mt-0.5 text-sm font-medium text-primary">
+                                                {selectedRfp.dueDate.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })}
+                                            </dd>
+                                        </div>
+                                        {selectedRfp.publishedAt && (
+                                            <div>
+                                                <dt className="text-xs font-medium text-quaternary">Published</dt>
+                                                <dd className="mt-0.5 text-sm font-medium text-primary">
+                                                    {selectedRfp.publishedAt.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })}
+                                                </dd>
+                                            </div>
+                                        )}
+                                        {selectedRfp.questionsDueDate && (
+                                            <div>
+                                                <dt className="text-xs font-medium text-quaternary">Questions Due</dt>
+                                                <dd className="mt-0.5 text-sm font-medium text-primary">
+                                                    {selectedRfp.questionsDueDate.toLocaleDateString("en-US", {
+                                                        year: "numeric",
+                                                        month: "short",
+                                                        day: "numeric",
+                                                    })}
+                                                </dd>
+                                            </div>
+                                        )}
+                                        {selectedRfp.preBidConferenceAt && (
+                                            <div>
+                                                <dt className="text-xs font-medium text-quaternary">Pre-Bid Conference</dt>
+                                                <dd className="mt-0.5 text-sm font-medium text-primary">
+                                                    {selectedRfp.preBidConferenceAt.toLocaleDateString("en-US", {
+                                                        year: "numeric",
+                                                        month: "short",
+                                                        day: "numeric",
+                                                    })}
+                                                </dd>
+                                            </div>
+                                        )}
+                                    </dl>
+                                </section>
+
+                                {/* Contract details card */}
+                                {(selectedRfp.estimatedValueUsd ||
+                                    selectedRfp.contractTermSummary ||
+                                    selectedRfp.procurementMethod ||
+                                    selectedRfp.setAside) && (
+                                    <section className="rounded-xl border border-secondary p-4">
+                                        <h3 className="text-sm font-bold text-primary">Contract Details</h3>
+                                        <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-3">
+                                            {selectedRfp.estimatedValueUsd && (
+                                                <div>
+                                                    <dt className="text-xs font-medium text-quaternary">Estimated Value</dt>
+                                                    <dd className="mt-0.5 text-sm font-medium text-primary">
+                                                        {selectedRfp.estimatedValueUsd.toLocaleString("en-US", {
+                                                            style: "currency",
+                                                            currency: "USD",
+                                                            maximumFractionDigits: 0,
+                                                        })}
+                                                    </dd>
+                                                </div>
+                                            )}
+                                            {selectedRfp.contractTermSummary && (
+                                                <div>
+                                                    <dt className="text-xs font-medium text-quaternary">Term</dt>
+                                                    <dd className="mt-0.5 text-sm font-medium text-primary">{selectedRfp.contractTermSummary}</dd>
+                                                </div>
+                                            )}
+                                            {selectedRfp.procurementMethod && (
+                                                <div>
+                                                    <dt className="text-xs font-medium text-quaternary">Evaluation Method</dt>
+                                                    <dd className="mt-0.5 text-sm font-medium text-primary">{selectedRfp.procurementMethod}</dd>
+                                                </div>
+                                            )}
+                                            {selectedRfp.setAside && (
+                                                <div>
+                                                    <dt className="text-xs font-medium text-quaternary">Set-Aside</dt>
+                                                    <dd className="mt-0.5">
+                                                        <BadgeWithDot color="brand" type="pill-color" size="sm">
+                                                            {selectedRfp.setAside}
+                                                        </BadgeWithDot>
+                                                    </dd>
+                                                </div>
+                                            )}
+                                        </dl>
+                                    </section>
+                                )}
+
+                                {/* NAICS codes */}
+                                {selectedRfp.industryCodes && selectedRfp.industryCodes.length > 0 && (
+                                    <section>
+                                        <h3 className="text-sm font-bold text-primary">NAICS Codes</h3>
+                                        <div className="mt-2 flex flex-wrap gap-1.5">
+                                            {selectedRfp.industryCodes.map((code) => (
+                                                <Badge key={code} type="modern" color="gray" size="sm">
+                                                    {code}
+                                                </Badge>
+                                            ))}
+                                        </div>
+                                    </section>
+                                )}
+
+                                {/* Contact card */}
+                                {(selectedRfp.contactName || selectedRfp.contactEmail || selectedRfp.contactPhone) && (
+                                    <section className="rounded-xl border border-secondary p-4">
+                                        <h3 className="flex items-center gap-2 text-sm font-bold text-primary">
+                                            <User01 className="size-4 text-fg-quaternary" />
+                                            Point of Contact
+                                        </h3>
+                                        <div className="mt-3 flex flex-col gap-2">
+                                            {selectedRfp.contactName && <p className="text-sm font-medium text-primary">{selectedRfp.contactName}</p>}
+                                            {selectedRfp.contactEmail && (
+                                                <a
+                                                    href={`mailto:${selectedRfp.contactEmail}`}
+                                                    className="flex items-center gap-2 text-sm font-medium text-brand-secondary hover:underline"
+                                                >
+                                                    <Mail01 className="size-3.5 text-fg-brand-secondary" />
+                                                    {selectedRfp.contactEmail}
+                                                </a>
+                                            )}
+                                            {selectedRfp.contactPhone && (
+                                                <span className="flex items-center gap-2 text-sm font-medium text-primary">
+                                                    <Phone className="size-3.5 text-fg-quaternary" />
+                                                    {selectedRfp.contactPhone}
+                                                </span>
+                                            )}
+                                        </div>
+                                    </section>
+                                )}
+
+                                {/* Files */}
+                                {selectedRfp.files && selectedRfp.files.length > 0 && <FileTable files={selectedRfp.files} />}
+
+                                {/* Spacer */}
+                                <div className="h-4" />
                             </div>
                         </DetailPanel.Content>
                     </>
