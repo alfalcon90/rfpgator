@@ -6,8 +6,7 @@ import type { SortDescriptor } from "react-aria-components";
 import { toast } from "sonner";
 import { DetailPanel } from "@/components/application/detail-panel/detail-panel";
 import { FileTable } from "@/components/application/file-table";
-import { renderFilterRow, useFilterState } from "@/components/application/filter-bar/filter-bar.demo";
-import { FilterDropdown } from "@/components/application/filter-bar/filter-dropdown-menu";
+import { PublishingSiteFilter, SemanticThresholdFilter } from "@/components/application/rfp-filter";
 import { IconNotification } from "@/components/application/notifications/notifications";
 import { PaginationCardDefault, PaginationPageMinimalCenter } from "@/components/application/pagination/pagination";
 import { Table, TableCard } from "@/components/application/table/table";
@@ -27,7 +26,8 @@ interface RfpListPageProps {
 }
 
 export function RfpListPage({ title, subtitle, rfps }: RfpListPageProps) {
-    const filterState = useFilterState();
+    const [publishingSite, setPublishingSite] = useState("");
+    const [semanticThreshold, setSemanticThreshold] = useState(0);
     const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>({
         column: "deliveryDate",
         direction: "descending",
@@ -114,7 +114,8 @@ export function RfpListPage({ title, subtitle, rfps }: RfpListPageProps) {
                                     <Button iconLeading={Settings04} color="secondary" size="sm">
                                         View options
                                     </Button>
-                                    <FilterDropdown {...filterState} renderFilterRow={renderFilterRow} />
+                                    <PublishingSiteFilter rfps={rfps} value={publishingSite} onChange={setPublishingSite} />
+                                    <SemanticThresholdFilter value={semanticThreshold} onChange={setSemanticThreshold} />
                                 </div>
                             </div>
                         </div>

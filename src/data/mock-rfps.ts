@@ -38,6 +38,7 @@ type RfpSeed = Omit<Rfp, "files" | "publishedAt" | "questionsDueDate" | "preBidC
     publishedDaysAgo: number;
     questionsDaysBeforeDue: number;
     preBidDaysBeforeDue?: number;
+    publishingAgency: string;
 };
 
 function finalize(seed: RfpSeed): Rfp {
@@ -81,6 +82,7 @@ const seeds: RfpSeed[] = [
         contractTermSummary: "Initial 2 years with three 1-year options",
         procurementMethod: "Lowest responsive bid",
         setAside: "Small business participation goal 15%",
+        publishingAgency: "BidPrime",
     },
     {
         id: "2",
@@ -106,6 +108,7 @@ const seeds: RfpSeed[] = [
         contractTermSummary: "Base 3 years + two 1-year options",
         procurementMethod: "Best value",
         setAside: undefined,
+        publishingAgency: "FindRFP",
     },
     {
         id: "3",
@@ -131,6 +134,7 @@ const seeds: RfpSeed[] = [
         contractTermSummary: "5-year initial term with annual renewals",
         procurementMethod: "Best value tradeoff",
         setAside: "State vendor preference program",
+        publishingAgency: "GovBids",
     },
     {
         id: "4",
@@ -156,6 +160,7 @@ const seeds: RfpSeed[] = [
         contractTermSummary: "7-year enterprise license with annual true-up",
         procurementMethod: "Best value",
         setAside: "CJIS compliance required",
+        publishingAgency: "BidNet",
     },
     {
         id: "5",
@@ -181,6 +186,7 @@ const seeds: RfpSeed[] = [
         contractTermSummary: "To be determined following RFI",
         procurementMethod: "Market research / RFI (no award)",
         setAside: undefined,
+        publishingAgency: "ProcureLink",
     },
     {
         id: "6",
@@ -205,6 +211,7 @@ const seeds: RfpSeed[] = [
         contractTermSummary: "12-month bridge with renewal options",
         procurementMethod: "Sole source justification (emergency)",
         setAside: undefined,
+        publishingAgency: "OpenGov",
     },
     {
         id: "7",
@@ -230,6 +237,7 @@ const seeds: RfpSeed[] = [
         contractTermSummary: "Implementation + 10-year operations term",
         procurementMethod: "Best value",
         setAside: undefined,
+        publishingAgency: "BidPrime",
     },
     {
         id: "8",
@@ -255,6 +263,7 @@ const seeds: RfpSeed[] = [
         contractTermSummary: "5-year SaaS term with annual CPI adjustment",
         procurementMethod: "Best value",
         setAside: "HUB participation encouraged",
+        publishingAgency: "GovWin",
     },
     {
         id: "9",
@@ -280,6 +289,7 @@ const seeds: RfpSeed[] = [
         contractTermSummary: "3-year subscription, renewable twice",
         procurementMethod: "Best value",
         setAside: undefined,
+        publishingAgency: "FindRFP",
     },
     {
         id: "10",
@@ -305,6 +315,7 @@ const seeds: RfpSeed[] = [
         contractTermSummary: "Hardware 5 years + software subscription aligned",
         procurementMethod: "Best value",
         setAside: undefined,
+        publishingAgency: "BidNet",
     },
     {
         id: "11",
@@ -330,6 +341,7 @@ const seeds: RfpSeed[] = [
         contractTermSummary: "Base 4 years + one 2-year option",
         procurementMethod: "Lowest responsive bid (price)",
         setAside: "Small business set-aside under threshold",
+        publishingAgency: "GovBids",
     },
     {
         id: "12",
@@ -355,6 +367,7 @@ const seeds: RfpSeed[] = [
         contractTermSummary: "3-year implementation + 7-year support",
         procurementMethod: "Best value",
         setAside: undefined,
+        publishingAgency: "ProcureNow",
     },
     {
         id: "13",
@@ -379,6 +392,7 @@ const seeds: RfpSeed[] = [
         contractTermSummary: "TBD post-RFI",
         procurementMethod: "RFI (informational)",
         setAside: undefined,
+        publishingAgency: "OpenGov",
     },
     {
         id: "14",
@@ -404,6 +418,7 @@ const seeds: RfpSeed[] = [
         contractTermSummary: "8-year agreement with annual service fees",
         procurementMethod: "Best value",
         setAside: undefined,
+        publishingAgency: "BidExpress",
     },
     {
         id: "15",
@@ -428,6 +443,7 @@ const seeds: RfpSeed[] = [
         contractTermSummary: "12-month retainer, renewable by amendment",
         procurementMethod: "Emergency procurement (sole source permitted)",
         setAside: undefined,
+        publishingAgency: "GovWin",
     },
     {
         id: "16",
@@ -453,6 +469,7 @@ const seeds: RfpSeed[] = [
         contractTermSummary: "5-year license + annual maintenance",
         procurementMethod: "Best value",
         setAside: "Section 3 business concern goal",
+        publishingAgency: "ProcureLink",
     },
     {
         id: "17",
@@ -478,6 +495,7 @@ const seeds: RfpSeed[] = [
         contractTermSummary: "Implementation + 6-year SaaS hosting",
         procurementMethod: "Best value",
         setAside: undefined,
+        publishingAgency: "BidPrime",
     },
     {
         id: "18",
@@ -503,6 +521,7 @@ const seeds: RfpSeed[] = [
         contractTermSummary: "Phased delivery over 36 months + 5-year support",
         procurementMethod: "Best value",
         setAside: undefined,
+        publishingAgency: "FindRFP",
     },
     {
         id: "19",
@@ -528,6 +547,7 @@ const seeds: RfpSeed[] = [
         contractTermSummary: "7-year platform license with data escrow",
         procurementMethod: "Best value",
         setAside: undefined,
+        publishingAgency: "GovBids",
     },
     {
         id: "20",
@@ -553,6 +573,7 @@ const seeds: RfpSeed[] = [
         contractTermSummary: "5-year BWC lease + 10-year DEMS subscription",
         procurementMethod: "Best value",
         setAside: "Local business preference",
+        publishingAgency: "BidExpress",
     },
 ];
 
