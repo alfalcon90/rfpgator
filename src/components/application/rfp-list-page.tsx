@@ -6,9 +6,9 @@ import type { SortDescriptor } from "react-aria-components";
 import { toast } from "sonner";
 import { DetailPanel } from "@/components/application/detail-panel/detail-panel";
 import { FileTable } from "@/components/application/file-table";
-import { PublishingSiteFilter, SemanticThresholdFilter } from "@/components/application/rfp-filter";
 import { IconNotification } from "@/components/application/notifications/notifications";
 import { PaginationCardDefault, PaginationPageMinimalCenter } from "@/components/application/pagination/pagination";
+import { PublishingSiteFilter, SemanticThresholdFilter } from "@/components/application/rfp-filter";
 import { Table, TableCard } from "@/components/application/table/table";
 import { Badge, BadgeWithDot } from "@/components/base/badges/badges";
 import { Button } from "@/components/base/buttons/button";
@@ -110,10 +110,7 @@ export function RfpListPage({ title, subtitle, rfps }: RfpListPageProps) {
                             </div>
                             <div className="flex flex-col gap-4 lg:flex-row">
                                 <div className="flex items-start gap-3">
-                                    <Input shortcut className="w-[300px] min-w-0 flex-1" size="sm" aria-label="Search" placeholder="Search" icon={SearchLg} />
-                                    <Button iconLeading={Settings04} color="secondary" size="sm">
-                                        View options
-                                    </Button>
+                                    <Input shortcut className="w-75 min-w-0 flex-1" size="sm" aria-label="Search" placeholder="Search" icon={SearchLg} />
                                     <PublishingSiteFilter rfps={rfps} value={publishingSite} onChange={setPublishingSite} />
                                     <SemanticThresholdFilter value={semanticThreshold} onChange={setSemanticThreshold} />
                                 </div>
@@ -131,7 +128,7 @@ export function RfpListPage({ title, subtitle, rfps }: RfpListPageProps) {
                             className="table-fixed bg-primary"
                         >
                             <Table.Header className="bg-secondary">
-                                <Table.Head id="title" isRowHeader label="Name" className="w-[380px] font-bold" />
+                                <Table.Head id="title" isRowHeader label="Name" className="w-95 font-bold" />
                                 <Table.Head id="description" label="Description" className="w-full min-w-0 font-bold" />
                             </Table.Header>
                             <Table.Body items={sortedItems} dependencies={[selectedRfpId]}>
@@ -141,7 +138,7 @@ export function RfpListPage({ title, subtitle, rfps }: RfpListPageProps) {
                                         <Table.Row id={rfp.id} className={cx("cursor-pointer", isSelected && "bg-brand-solid/10 hover:bg-brand-solid/20")}>
                                             <Table.Cell
                                                 className={cx(
-                                                    "w-[380px] min-w-0 align-top",
+                                                    "w-95 min-w-0 align-top",
                                                     isSelected && "before:absolute before:inset-y-0 before:left-0 before:w-1 before:bg-brand-solid",
                                                 )}
                                             >
