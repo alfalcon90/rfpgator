@@ -2,14 +2,10 @@
 
 import { useMemo, useState } from "react";
 import { ChevronDown, SearchLg } from "@untitledui/icons";
-import {
-    Dialog as AriaDialog,
-    DialogTrigger as AriaDialogTrigger,
-    Popover as AriaPopover,
-} from "react-aria-components";
-import { RadioButton, RadioGroup } from "@/components/base/radio-buttons/radio-buttons";
+import { Dialog as AriaDialog, DialogTrigger as AriaDialogTrigger, Popover as AriaPopover } from "react-aria-components";
 import { Button } from "@/components/base/buttons/button";
 import { Input } from "@/components/base/input/input";
+import { RadioButton, RadioGroup } from "@/components/base/radio-buttons/radio-buttons";
 import type { Rfp } from "@/types/rfp";
 import { cx } from "@/utils/cx";
 
@@ -50,12 +46,13 @@ export const PublishingSiteFilter = ({ rfps, value, onChange }: PublishingSiteFi
             <Button
                 color="secondary"
                 size="sm"
-                iconTrailing={ChevronDown}
-                className={cx("max-h-9", value && "bg-primary_hover")}
+                noTextPadding
+                className={cx("max-h-9 w-40 *:data-text:min-w-0 *:data-text:flex-1", value && "bg-primary_hover")}
             >
                 <span className="flex items-center gap-1.5 text-sm">
-                    <span className="text-quaternary">Site:</span>
-                    {label}
+                    <span className="shrink-0 text-quaternary">Site:</span>
+                    <span className="min-w-0 flex-1 truncate text-start">{label}</span>
+                    <ChevronDown className="size-5 shrink-0 text-quaternary" />
                 </span>
             </Button>
             <AriaPopover
@@ -64,11 +61,9 @@ export const PublishingSiteFilter = ({ rfps, value, onChange }: PublishingSiteFi
                 containerPadding={0}
                 className={(state) =>
                     cx(
-                        "w-[260px] origin-(--trigger-anchor-point) will-change-transform",
-                        state.isEntering &&
-                            "duration-150 ease-out animate-in fade-in placement-bottom:slide-in-from-top-0.5",
-                        state.isExiting &&
-                            "duration-100 ease-in animate-out fade-out placement-bottom:slide-out-to-top-0.5",
+                        "w-65 origin-(--trigger-anchor-point) will-change-transform",
+                        state.isEntering && "duration-150 ease-out animate-in fade-in placement-bottom:slide-in-from-top-0.5",
+                        state.isExiting && "duration-100 ease-in animate-out fade-out placement-bottom:slide-out-to-top-0.5",
                     )
                 }
             >
@@ -88,29 +83,15 @@ export const PublishingSiteFilter = ({ rfps, value, onChange }: PublishingSiteFi
 
                     {/* Radio list */}
                     <div className="flex-1 overflow-y-auto p-2">
-                        <RadioGroup
-                            aria-label="Publishing site"
-                            value={value}
-                            onChange={(v) => onChange(v)}
-                            className="gap-0"
-                        >
+                        <RadioGroup aria-label="Publishing site" value={value} onChange={(v) => onChange(v)} className="gap-0">
                             {/* "All sites" always shows first */}
                             {(!search || "all sites".includes(search.toLowerCase())) && (
-                                <RadioButton
-                                    value=""
-                                    label="All sites"
-                                    className="rounded-md px-2 py-1.5 hover:bg-primary_hover"
-                                />
+                                <RadioButton value="" label="All sites" className="rounded-md px-2 py-1.5 hover:bg-primary_hover" />
                             )}
                             {filtered.map((site) => (
-                                <RadioButton
-                                    key={site}
-                                    value={site}
-                                    label={site}
-                                    className="rounded-md px-2 py-1.5 hover:bg-primary_hover"
-                                />
+                                <RadioButton key={site} value={site} label={site} className="rounded-md px-2 py-1.5 hover:bg-primary_hover" />
                             ))}
-                            {filtered.length === 0 && search && !("all sites".includes(search.toLowerCase())) && (
+                            {filtered.length === 0 && search && !"all sites".includes(search.toLowerCase()) && (
                                 <p className="px-2 py-3 text-center text-sm text-tertiary">No sites match "{search}"</p>
                             )}
                         </RadioGroup>
@@ -149,12 +130,13 @@ export const SemanticThresholdFilter = ({ value, onChange }: SemanticThresholdFi
             <Button
                 color="secondary"
                 size="sm"
-                iconTrailing={ChevronDown}
-                className={cx("max-h-9", value !== 0 && "bg-primary_hover")}
+                noTextPadding
+                className={cx("max-h-9 w-40 *:data-text:min-w-0 *:data-text:flex-1", value !== 0 && "bg-primary_hover")}
             >
                 <span className="flex items-center gap-1.5 text-sm">
-                    <span className="text-quaternary">Threshold:</span>
-                    {value}
+                    <span className="shrink-0 text-quaternary">Threshold:</span>
+                    <span className="min-w-0 flex-1 truncate text-start">{value}</span>
+                    <ChevronDown className="size-5 shrink-0 text-quaternary" />
                 </span>
             </Button>
             <AriaPopover
@@ -163,11 +145,9 @@ export const SemanticThresholdFilter = ({ value, onChange }: SemanticThresholdFi
                 containerPadding={0}
                 className={(state) =>
                     cx(
-                        "w-[240px] origin-(--trigger-anchor-point) will-change-transform",
-                        state.isEntering &&
-                            "duration-150 ease-out animate-in fade-in placement-bottom:slide-in-from-top-0.5",
-                        state.isExiting &&
-                            "duration-100 ease-in animate-out fade-out placement-bottom:slide-out-to-top-0.5",
+                        "w-60 origin-(--trigger-anchor-point) will-change-transform",
+                        state.isEntering && "duration-150 ease-out animate-in fade-in placement-bottom:slide-in-from-top-0.5",
+                        state.isExiting && "duration-100 ease-in animate-out fade-out placement-bottom:slide-out-to-top-0.5",
                     )
                 }
             >
@@ -183,9 +163,7 @@ export const SemanticThresholdFilter = ({ value, onChange }: SemanticThresholdFi
                         onBlur={commit}
                         onKeyDown={(e) => e.key === "Enter" && commit()}
                     />
-                    <p className="mt-2 text-xs text-tertiary">
-                        Minimum relevance score (0–1) required for results to appear.
-                    </p>
+                    <p className="mt-2 text-xs text-tertiary">Minimum relevance score (0–1) required for results to appear.</p>
                 </AriaDialog>
             </AriaPopover>
         </AriaDialogTrigger>
