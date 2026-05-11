@@ -167,9 +167,10 @@ TableHeader.displayName = "TableHeader";
 interface TableHeadProps extends AriaColumnProps, Omit<ThHTMLAttributes<HTMLTableCellElement>, "children" | "className" | "style" | "id"> {
     label?: string;
     tooltip?: string;
+    contentAlign?: "start" | "end";
 }
 
-const TableHead = ({ className, tooltip, label, children, ...props }: TableHeadProps) => {
+const TableHead = ({ className, tooltip, label, children, contentAlign, ...props }: TableHeadProps) => {
     const { selectionBehavior } = useTableOptions();
 
     return (
@@ -185,7 +186,7 @@ const TableHead = ({ className, tooltip, label, children, ...props }: TableHeadP
             }
         >
             {(state) => (
-                <AriaGroup className="flex items-center gap-1">
+                <AriaGroup className={cx("flex w-full items-center gap-1", contentAlign === "end" && "justify-end")}>
                     <div className="flex items-center gap-1">
                         {label && <span className="text-xs font-semibold whitespace-nowrap text-quaternary uppercase">{label}</span>}
                         {typeof children === "function" ? children(state) : children}

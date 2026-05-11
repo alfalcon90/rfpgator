@@ -396,21 +396,6 @@ export const PaginationCardAdvanced = ({
                 onPageChange={onPageChange}
                 className={cx("flex items-center gap-3", align === "center" && "justify-between")}
             >
-                <div className="hidden items-center gap-2 text-sm font-medium whitespace-nowrap text-fg-secondary md:flex">
-                    Page
-                    <InputBase
-                        aria-label="Page"
-                        value={page.toString()}
-                        onChange={(event) => onPageChange?.(Number(event.target.value))}
-                        size="sm"
-                        wrapperClassName="min-w-9"
-                        inputClassName="text-center min-w-9 field-sizing-content"
-                    />
-                    of {total}
-                </div>
-
-                <hr className={cx("mx-1 h-4 w-px border-l border-primary max-md:hidden", align === "center" && "hidden")} />
-
                 <div className={cx("hidden items-center gap-2 md:flex", align === "center" && "order-last")}>
                     <span className="text-sm font-medium whitespace-nowrap text-secondary">Rows per page</span>
                     <Select
@@ -434,13 +419,11 @@ export const PaginationCardAdvanced = ({
                 </div>
 
                 <div className={cx("flex flex-1 items-center gap-4 md:ml-auto md:justify-end", align === "center" && "md:justify-center")}>
-                    <div className="flex gap-2">
-                        <Button iconLeading={ChevronLeftDouble} color="secondary" size="sm" isDisabled={page === 1} onClick={() => onPageChange?.(1)} />
-                        <Pagination.PrevTrigger asChild>
-                            <Button iconLeading={ChevronLeft} color="secondary" size="sm" />
-                        </Pagination.PrevTrigger>
-                    </div>
-
+                    <Pagination.PrevTrigger asChild>
+                        <Button color="secondary" size="sm">
+                            Previous
+                        </Button>
+                    </Pagination.PrevTrigger>
                     <Pagination.Context>
                         {({ pages, currentPage, total }) => (
                             <>
@@ -462,19 +445,11 @@ export const PaginationCardAdvanced = ({
                             </>
                         )}
                     </Pagination.Context>
-
-                    <div className="flex gap-2">
-                        <Button
-                            iconTrailing={ChevronRightDouble}
-                            color="secondary"
-                            size="sm"
-                            isDisabled={page === total}
-                            onClick={() => onPageChange?.(total)}
-                        />
-                        <Pagination.NextTrigger asChild>
-                            <Button iconTrailing={ChevronRight} color="secondary" size="sm" />
-                        </Pagination.NextTrigger>
-                    </div>
+                    <Pagination.NextTrigger asChild>
+                        <Button color="secondary" size="sm">
+                            Next
+                        </Button>
+                    </Pagination.NextTrigger>
                 </div>
             </Pagination.Root>
         </div>

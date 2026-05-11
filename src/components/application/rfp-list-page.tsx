@@ -1,13 +1,13 @@
 "use client";
 
 import { useCallback, useMemo, useState } from "react";
-import { CalendarCheck01, LinkExternal01, Mail01, MarkerPin01, Phone, SearchLg, Settings04, Star01, User01, XSquare } from "@untitledui/icons";
+import { CalendarCheck01, ChevronLeft, ChevronRight, LinkExternal01, Mail01, MarkerPin01, Phone, SearchLg, Star01, User01, XSquare } from "@untitledui/icons";
 import type { SortDescriptor } from "react-aria-components";
 import { toast } from "sonner";
 import { DetailPanel } from "@/components/application/detail-panel/detail-panel";
 import { FileTable } from "@/components/application/file-table";
 import { IconNotification } from "@/components/application/notifications/notifications";
-import { PaginationCardDefault, PaginationPageMinimalCenter } from "@/components/application/pagination/pagination";
+import { PaginationCardAdvanced, PaginationPageMinimalCenter } from "@/components/application/pagination/pagination";
 import { PublishingSiteFilter, SemanticThresholdFilter } from "@/components/application/rfp-filter";
 import { Table, TableCard } from "@/components/application/table/table";
 import { Badge, BadgeWithDot } from "@/components/base/badges/badges";
@@ -128,8 +128,12 @@ export function RfpListPage({ title, subtitle, rfps }: RfpListPageProps) {
                             className="table-fixed bg-primary"
                         >
                             <Table.Header className="bg-secondary">
-                                <Table.Head id="title" isRowHeader label="Name" className="w-95 font-bold" />
-                                <Table.Head id="description" label="Description" className="w-full min-w-0 font-bold" />
+                                <Table.Head id="title" isRowHeader label="1-100 of 2,658 results" className="w-95 font-bold" />
+                                <Table.Head id="description" label="" contentAlign="end" className="w-full min-w-0 font-bold">
+                                    <Button iconLeading={ChevronLeft} color="tertiary" />
+                                    <p className="text-xs font-semibold whitespace-nowrap text-quaternary uppercase">Page 1 of 10</p>
+                                    <Button iconLeading={ChevronRight} color="tertiary" />
+                                </Table.Head>
                             </Table.Header>
                             <Table.Body items={sortedItems} dependencies={[selectedRfpId]}>
                                 {(rfp) => {
@@ -163,7 +167,7 @@ export function RfpListPage({ title, subtitle, rfps }: RfpListPageProps) {
                             </Table.Body>
                         </Table>
                         <div className="max-lg:hidden">
-                            <PaginationCardDefault />
+                            <PaginationCardAdvanced />
                         </div>
                     </TableCard.Root>
                     <div className="lg:hidden">
