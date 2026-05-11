@@ -1,6 +1,5 @@
 /** Where the RFP appears in the user's workflow (inbox triage vs saved vs ignored). */
 export enum Status {
-  All = "all",
   Inbox = "inbox",
   Ignored = "ignored",
   Saved = "saved",

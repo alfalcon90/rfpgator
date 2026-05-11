@@ -8,6 +8,7 @@ import { DetailPanel } from "@/components/application/detail-panel/detail-panel"
 import { FileTable } from "@/components/application/file-table";
 import { IconNotification } from "@/components/application/notifications/notifications";
 import { PaginationCardAdvanced, PaginationPageMinimalCenter } from "@/components/application/pagination/pagination";
+import { RfpContextMenu, useRfpContextMenu } from "@/components/application/rfp-context-menu";
 import { DueDateFilter, DueDateFilterValue, PublishingSiteFilter, SemanticThresholdFilter } from "@/components/application/rfp-filter";
 import { Table, TableCard } from "@/components/application/table/table";
 import { Badge, BadgeWithDot } from "@/components/base/badges/badges";
@@ -62,6 +63,7 @@ export function RfpListPage({ title, subtitle, rfps }: RfpListPageProps) {
 
     const handleDeselect = useCallback(() => setSelectedRfpId(null), []);
     const updateRfpStatus = useUpdateRfpStatus();
+    const { contextMenu, handleContextMenu, handleAction: handleContextMenuAction, close: closeContextMenu } = useRfpContextMenu(sortedItems);
 
     const handleStatusChange = useCallback(
         (status: Status) => {
@@ -111,7 +113,7 @@ export function RfpListPage({ title, subtitle, rfps }: RfpListPageProps) {
                             </div>
                             <div className="flex flex-col gap-4 lg:flex-row">
                                 <div className="flex items-start gap-3">
-                                    <Input shortcut className="w-75 min-w-0 flex-1" size="sm" aria-label="Search" placeholder="Search" icon={SearchLg} />
+                                    <Input className="w-75 min-w-0 flex-1" size="sm" aria-label="Search" placeholder="Search" icon={SearchLg} />
                                     <PublishingSiteFilter rfps={rfps} value={publishingSite} onChange={setPublishingSite} />
                                     <SemanticThresholdFilter value={semanticThreshold} onChange={setSemanticThreshold} />
                                     <DueDateFilter value={dueDateFilter} onChange={setDueDateFilter} />
@@ -141,7 +143,11 @@ export function RfpListPage({ title, subtitle, rfps }: RfpListPageProps) {
                                 {(rfp) => {
                                     const isSelected = rfp.id === selectedRfpId;
                                     return (
-                                        <Table.Row id={rfp.id} className={cx("cursor-pointer", isSelected && "bg-brand-solid/10 hover:bg-brand-solid/20")}>
+                                        <Table.Row
+                                            id={rfp.id}
+                                            className={cx("cursor-pointer", isSelected && "bg-brand-solid/10 hover:bg-brand-solid/20")}
+                                            onContextMenu={(e: React.MouseEvent) => handleContextMenu(e, rfp.id)}
+                                        >
                                             <Table.Cell
                                                 className={cx(
                                                     "w-95 min-w-0 align-top",
@@ -168,6 +174,11 @@ export function RfpListPage({ title, subtitle, rfps }: RfpListPageProps) {
                                 }}
                             </Table.Body>
                         </Table>
+
+                        {/* Right-click context menu */}
+                        {contextMenu && (
+                            <RfpContextMenu contextMenu={contextMenu} onAction={handleContextMenuAction} onClose={closeContextMenu} />
+                        )}
                         <div className="max-lg:hidden">
                             <PaginationCardAdvanced />
                         </div>
