@@ -8,7 +8,7 @@ import { DetailPanel } from "@/components/application/detail-panel/detail-panel"
 import { FileTable } from "@/components/application/file-table";
 import { IconNotification } from "@/components/application/notifications/notifications";
 import { PaginationCardAdvanced, PaginationPageMinimalCenter } from "@/components/application/pagination/pagination";
-import { PublishingSiteFilter, SemanticThresholdFilter } from "@/components/application/rfp-filter";
+import { DueDateFilter, DueDateFilterValue, PublishingSiteFilter, SemanticThresholdFilter } from "@/components/application/rfp-filter";
 import { Table, TableCard } from "@/components/application/table/table";
 import { Badge, BadgeWithDot } from "@/components/base/badges/badges";
 import { Button } from "@/components/base/buttons/button";
@@ -28,6 +28,7 @@ interface RfpListPageProps {
 export function RfpListPage({ title, subtitle, rfps }: RfpListPageProps) {
     const [publishingSite, setPublishingSite] = useState("");
     const [semanticThreshold, setSemanticThreshold] = useState(0);
+    const [dueDateFilter, setDueDateFilter] = useState<DueDateFilterValue>("all");
     const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>({
         column: "deliveryDate",
         direction: "descending",
@@ -113,6 +114,7 @@ export function RfpListPage({ title, subtitle, rfps }: RfpListPageProps) {
                                     <Input shortcut className="w-75 min-w-0 flex-1" size="sm" aria-label="Search" placeholder="Search" icon={SearchLg} />
                                     <PublishingSiteFilter rfps={rfps} value={publishingSite} onChange={setPublishingSite} />
                                     <SemanticThresholdFilter value={semanticThreshold} onChange={setSemanticThreshold} />
+                                    <DueDateFilter value={dueDateFilter} onChange={setDueDateFilter} />
                                 </div>
                             </div>
                         </div>

@@ -169,3 +169,79 @@ export const SemanticThresholdFilter = ({ value, onChange }: SemanticThresholdFi
         </AriaDialogTrigger>
     );
 };
+
+/* ──────────────────────────────────────────────────────────
+   Due-date filter
+   ────────────────────────────────────────────────────────── */
+
+export type DueDateFilterValue = "all" | "open" | "closed" | "7-30" | "next-year";
+
+const DUE_DATE_OPTIONS: { value: DueDateFilterValue; label: string }[] = [
+    { value: "all", label: "All" },
+    { value: "open", label: "Open" },
+    { value: "closed", label: "Closed" },
+    { value: "7-30", label: "Due in 7–30 days" },
+    { value: "next-year", label: "Due in next year" },
+];
+
+interface DueDateFilterProps {
+    /** Currently-selected due-date option. */
+    value: DueDateFilterValue;
+    /** Called when the user picks a different option. */
+    onChange: (v: DueDateFilterValue) => void;
+}
+
+export const DueDateFilter = ({ value, onChange }: DueDateFilterProps) => {
+    const label = DUE_DATE_OPTIONS.find((o) => o.value === value)?.label ?? "All";
+
+    return (
+        <AriaDialogTrigger>
+            <Button
+                color="secondary"
+                size="sm"
+                noTextPadding
+                className={cx("max-h-9 w-40 *:data-text:min-w-0 *:data-text:flex-1", value !== "all" && "bg-primary_hover")}
+            >
+                <span className="flex items-center gap-1.5 text-sm">
+                    <span className="shrink-0 text-quaternary">Due:</span>
+                    <span className="min-w-0 flex-1 truncate text-start">{label}</span>
+                    <ChevronDown className="size-5 shrink-0 text-quaternary" />
+                </span>
+            </Button>
+            <AriaPopover
+                placement="bottom start"
+                offset={4}
+                containerPadding={0}
+                className={(state) =>
+                    cx(
+                        "w-[220px] origin-(--trigger-anchor-point) will-change-transform",
+                        state.isEntering &&
+                            "duration-150 ease-out animate-in fade-in placement-bottom:slide-in-from-top-0.5",
+                        state.isExiting &&
+                            "duration-100 ease-in animate-out fade-out placement-bottom:slide-out-to-top-0.5",
+                    )
+                }
+            >
+                <AriaDialog className="flex flex-col overflow-hidden rounded-lg bg-primary shadow-lg ring-1 ring-secondary_alt outline-hidden">
+                    <div className="p-2">
+                        <RadioGroup
+                            aria-label="Due date"
+                            value={value}
+                            onChange={(v) => onChange(v as DueDateFilterValue)}
+                            className="gap-0"
+                        >
+                            {DUE_DATE_OPTIONS.map((opt) => (
+                                <RadioButton
+                                    key={opt.value}
+                                    value={opt.value}
+                                    label={opt.label}
+                                    className="rounded-md px-2 py-1.5 hover:bg-primary_hover"
+                                />
+                            ))}
+                        </RadioGroup>
+                    </div>
+                </AriaDialog>
+            </AriaPopover>
+        </AriaDialogTrigger>
+    );
+};
