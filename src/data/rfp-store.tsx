@@ -35,6 +35,10 @@ export function useRfps(): Rfp[] {
 
 export function useRfpsByStatus(status: Status): Rfp[] {
     const { rfps } = useRfpStore();
+    if (status === Status.All) {
+        return rfps;
+    }
+
     return useMemo(() => rfps.filter((r) => r.status === status), [rfps, status]);
 }
 

@@ -1,14 +1,15 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { HomeLine, Inbox01, LifeBuoy01, Settings01, Star01, XSquare } from "@untitledui/icons";
+import { HomeLine, LifeBuoy01, Settings01, Star01, XSquare } from "@untitledui/icons";
 import { usePathname } from "next/navigation";
 import { SidebarNavigationSlim } from "@/components/application/app-navigation/sidebar-navigation/sidebar-slim";
 import { RfpStoreProvider } from "@/data/rfp-store";
 
 const NAV_ITEMS = [
     { label: "Home", href: "/", icon: HomeLine },
-    { label: "Inbox", href: "/inbox", icon: Inbox01 },
+    // { label: "Dashboard", href: "/dashboard", icon:  Grid01},
+    // { label: "Inbox", href: "/inbox", icon: Inbox01 },
     { label: "Saved", href: "/saved", icon: Star01 },
     { label: "Ignored", href: "/ignored", icon: XSquare },
 ];
