@@ -71,7 +71,7 @@ export const MetricChangeIndicator = ({ type, trend, value, className }: MetricC
             />
             <span
                 className={cx(
-                    "text-sm font-medium text-secondary",
+                    "body-sm text-secondary",
                     type === "modern" ? "text-secondary" : trend === "negative" ? "text-error-primary" : "text-success-primary",
                 )}
             >
@@ -101,10 +101,10 @@ export const MetricsSimple = ({
     return (
         <div className={cx("rounded-xl bg-primary shadow-xs ring-1 ring-secondary ring-inset", className)}>
             <div className="relative flex flex-col gap-2 px-4 py-5 md:px-5">
-                <h3 className="text-sm font-medium text-tertiary">{subtitle}</h3>
+                <h3 className="body-sm text-tertiary">{subtitle}</h3>
 
                 <div className="flex items-end gap-4">
-                    <p className="flex-1 text-display-sm font-semibold text-primary">{title}</p>
+                    <p className="flex-1 display-sm text-primary">{title}</p>
                     <MetricChangeIndicator type={type} trend={trend} value={change} />
                 </div>
 
@@ -135,10 +135,10 @@ export const MetricsIcon01 = ({
                 <FeaturedIcon color="success" theme="light" icon={TrendUp01} size="lg" />
 
                 <div className="flex flex-col gap-2">
-                    <h3 className="text-sm font-medium text-tertiary">{subtitle}</h3>
+                    <h3 className="body-sm text-tertiary">{subtitle}</h3>
 
                     <div className="flex items-end gap-4">
-                        <p className="flex-1 text-display-sm font-semibold text-primary">{title}</p>
+                        <p className="flex-1 display-sm text-primary">{title}</p>
                         <MetricChangeIndicator type="modern" trend="positive" value="100%" />
                     </div>
                 </div>
@@ -169,14 +169,14 @@ export const MetricsIcon02 = ({
             <div className="relative flex flex-col gap-4 px-4 py-5 md:gap-5 md:px-5">
                 <div className="flex items-center gap-3">
                     <FeaturedIcon color="brand" theme="light" size="lg" icon={Zap} />
-                    <h3 className="text-md font-semibold text-primary">{subtitle}</h3>
+                    <h3 className="body-md font-semibold text-primary">{subtitle}</h3>
                 </div>
 
                 <div className="flex flex-col gap-3">
-                    <p className="flex-1 text-display-sm font-semibold text-primary">{title}</p>
+                    <p className="flex-1 display-sm text-primary">{title}</p>
                     <div className="flex gap-2">
                         <MetricChangeIndicator type="simple" trend="positive" value="100%" />
-                        <span className="text-sm font-medium text-tertiary">vs last month</span>
+                        <span className="body-sm text-tertiary">vs last month</span>
                     </div>
                 </div>
 
@@ -215,13 +215,13 @@ export const MetricsIcon03 = ({
                 <FeaturedIcon color="gray" theme="modern" icon={icon || TrendUp01} size="lg" />
 
                 <div className="flex flex-col gap-2">
-                    <h3 className="text-sm font-semibold text-tertiary">{subtitle}</h3>
+                    <h3 className="body-sm font-semibold text-tertiary">{subtitle}</h3>
 
                     <div className="flex flex-wrap items-center gap-3 lg:gap-4">
-                        <p className="flex-1 text-display-sm font-semibold text-primary">{title}</p>
+                        <p className="flex-1 display-sm text-primary">{title}</p>
                         <div className="flex gap-2">
                             <MetricChangeIndicator type="trend" trend={changeTrend} value={change} />
-                            <span className="text-sm font-medium text-tertiary">vs last month</span>
+                            <span className="body-sm text-tertiary">vs last month</span>
                         </div>
                     </div>
                 </div>
@@ -263,10 +263,10 @@ export const MetricsIcon04 = ({
                 <FeaturedIcon color="gray" theme="modern" icon={icon} size="md" />
 
                 <div className="flex w-full flex-col gap-2">
-                    <h3 className="text-sm font-semibold text-tertiary">{subtitle}</h3>
+                    <h3 className="body-sm font-semibold text-tertiary">{subtitle}</h3>
 
                     <div className="flex w-full flex-wrap items-center justify-between gap-4">
-                        <p className="flex-1 text-display-sm font-semibold text-primary">{title}</p>
+                        <p className="flex-1 display-sm text-primary">{title}</p>
 
                         <MetricChangeIndicator type="modern" trend={changeTrend} value={change} />
                     </div>
@@ -353,14 +353,14 @@ export const MetricsChart01 = ({
     return (
         <div className={cx("rounded-xl bg-primary shadow-xs ring-1 ring-secondary ring-inset", className)}>
             <div className="relative flex flex-col gap-5 px-4 py-5 md:px-5">
-                <h3 className="text-md font-semibold text-primary">{subtitle}</h3>
+                <h3 className="body-md font-semibold text-primary">{subtitle}</h3>
 
                 <div className="flex items-end justify-between gap-4">
                     <div className="flex flex-col gap-3">
-                        <p className="flex-1 text-display-sm font-semibold text-primary">{title}</p>
+                        <p className="flex-1 display-sm text-primary">{title}</p>
                         <div className="flex gap-2">
                             <MetricChangeIndicator type="simple" trend={trend} value={change} />
-                            <span className="text-sm font-medium text-tertiary">{changeDescription}</span>
+                            <span className="body-sm text-tertiary">{changeDescription}</span>
                         </div>
                     </div>
 
@@ -441,12 +441,12 @@ export const MetricsChart02 = ({
             <div className="relative flex flex-col gap-4 px-4 py-5 md:gap-5 md:px-5">
                 <div className="flex items-center gap-3">
                     <FeaturedIcon color="gray" theme="modern" size="lg" icon={icon} />
-                    <h3 className="text-md font-semibold text-primary">{subtitle}</h3>
+                    <h3 className="body-md font-semibold text-primary">{subtitle}</h3>
                 </div>
 
                 <div className="flex items-end justify-between gap-4">
                     <div className="flex items-start gap-2">
-                        <p className="flex-1 text-display-sm font-semibold text-primary lg:text-display-md">{title}</p>
+                        <p className="flex-1 display-sm text-primary lg:text-display-md">{title}</p>
                         <MetricChangeIndicator type="trend" trend={changeTrend} value={change} />
                     </div>
 
@@ -537,13 +537,13 @@ export const MetricsChart03 = ({
         <div className={cx("rounded-xl bg-primary shadow-xs ring-1 ring-secondary ring-inset", className)}>
             <div className="relative flex flex-col gap-4 px-4 py-5 md:gap-5 md:px-5">
                 <div className="flex flex-col gap-2">
-                    <h3 className="text-sm font-medium text-tertiary">{subtitle}</h3>
+                    <h3 className="body-sm text-tertiary">{subtitle}</h3>
 
                     <div className="flex items-center gap-4">
-                        <p className="flex-1 text-display-sm font-semibold text-primary">{title}</p>
+                        <p className="flex-1 display-sm text-primary">{title}</p>
                         <div className="flex gap-2">
                             <MetricChangeIndicator type={type} trend={changeTrend} value={change} />
-                            {changeDescription && <span className="text-sm font-medium text-tertiary">{changeDescription}</span>}
+                            {changeDescription && <span className="body-sm text-tertiary">{changeDescription}</span>}
                         </div>
                     </div>
                 </div>
@@ -623,15 +623,15 @@ export const MetricsChart04 = ({
     return (
         <div className={cx("flex flex-col overflow-hidden rounded-xl bg-secondary shadow-xs ring-1 ring-secondary ring-inset", className)}>
             <div className="mb-0.5 px-4 pt-3 pb-2 md:px-5">
-                <h3 className="text-sm font-semibold text-primary">{subtitle}</h3>
+                <h3 className="body-sm font-semibold text-primary">{subtitle}</h3>
             </div>
             <div className="relative flex flex-col gap-4 rounded-xl bg-primary px-4 py-5 shadow-xs ring-1 ring-secondary ring-inset md:gap-5 md:px-5">
                 <div className="flex flex-col gap-2">
                     <div className="flex items-center gap-3">
-                        <p className="text-display-sm font-semibold text-primary">{title}</p>
+                        <p className="display-sm text-primary">{title}</p>
                         <div className="flex gap-2">
                             <MetricChangeIndicator type={type} trend={changeTrend} value={change} />
-                            {changeDescription && <span className="text-sm font-medium text-tertiary">{changeDescription}</span>}
+                            {changeDescription && <span className="body-sm text-tertiary">{changeDescription}</span>}
                         </div>
                     </div>
                 </div>

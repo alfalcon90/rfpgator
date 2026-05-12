@@ -28,6 +28,95 @@
     transition-timing-function: inherit;
 }
 
+/* ── TEXT STYLE UTILITIES ────────────────────────────────────────────────
+ *  Encapsulated text styles so you can write a single class instead of
+ *  repeating text-size + font-weight everywhere.
+ *
+ *  display-*  → headings / hero text    (font-weight: 600 – semibold)
+ *  body-*     → body / UI text          (font-weight: 500 – medium)
+ *  overline-* → small caps / labels     (font-weight: 600 – semibold, uppercase, tracking)
+ *
+ *  Colors are NOT baked in – compose with text-primary, text-tertiary, etc.
+ * ──────────────────────────────────────────────────────────────────────── */
+
+/* ── Display ── */
+@utility display-sm {
+    font-size: var(--text-display-sm);
+    line-height: var(--text-display-sm--line-height);
+    font-weight: 600;
+}
+@utility display-md {
+    font-size: var(--text-display-md);
+    line-height: var(--text-display-md--line-height);
+    letter-spacing: var(--text-display-md--letter-spacing);
+    font-weight: 600;
+}
+@utility display-lg {
+    font-size: var(--text-display-lg);
+    line-height: var(--text-display-lg--line-height);
+    letter-spacing: var(--text-display-lg--letter-spacing);
+    font-weight: 600;
+}
+@utility display-xl {
+    font-size: var(--text-display-xl);
+    line-height: var(--text-display-xl--line-height);
+    letter-spacing: var(--text-display-xl--letter-spacing);
+    font-weight: 600;
+}
+@utility display-2xl {
+    font-size: var(--text-display-2xl);
+    line-height: var(--text-display-2xl--line-height);
+    letter-spacing: var(--text-display-2xl--letter-spacing);
+    font-weight: 600;
+}
+
+/* ── Body ── */
+@utility body-xs {
+    font-size: var(--text-xs);
+    line-height: var(--text-xs--line-height);
+    font-weight: 500;
+}
+@utility body-sm {
+    font-size: var(--text-sm);
+    line-height: var(--text-sm--line-height);
+    font-weight: 500;
+}
+@utility body-md {
+    font-size: var(--text-md);
+    line-height: var(--text-md--line-height);
+    font-weight: 500;
+}
+@utility body-lg {
+    font-size: var(--text-lg);
+    line-height: var(--text-lg--line-height);
+    font-weight: 500;
+}
+@utility body-xl {
+    font-size: var(--text-xl);
+    line-height: var(--text-xl--line-height);
+    font-weight: 500;
+}
+
+/* ── Overline ── */
+@utility overline-xs {
+    font-size: var(--text-xs);
+    line-height: var(--text-xs--line-height);
+    font-weight: 600;
+    text-transform: uppercase;
+}
+@utility overline-sm {
+    font-size: var(--text-sm);
+    line-height: var(--text-sm--line-height);
+    font-weight: 600;
+    text-transform: uppercase;
+}
+@utility overline-md {
+    font-size: var(--text-md);
+    line-height: var(--text-md--line-height);
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
 html,
 body {
     font-family: var(--font-body);

@@ -85,7 +85,7 @@ const TableCardHeader = ({ title, badge, description, contentTrailing, className
         >
             <div className="flex flex-1 flex-col gap-0.5">
                 <div className="flex items-center gap-2">
-                    <h2 className="text-md font-semibold text-primary">{title}</h2>
+                    <h2 className="body-md font-semibold text-primary">{title}</h2>
                     {badge ? (
                         isValidElement(badge) ? (
                             badge
@@ -188,7 +188,7 @@ const TableHead = ({ className, tooltip, label, children, contentAlign, ...props
             {(state) => (
                 <AriaGroup className={cx("flex w-full items-center gap-1", contentAlign === "end" && "justify-end")}>
                     <div className="flex items-center gap-1">
-                        {label && <span className="text-xs font-semibold whitespace-nowrap text-quaternary uppercase">{label}</span>}
+                        {label && <span className="overline-xs whitespace-nowrap text-quaternary">{label}</span>}
                         {typeof children === "function" ? children(state) : children}
                     </div>
 

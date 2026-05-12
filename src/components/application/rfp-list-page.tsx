@@ -108,8 +108,8 @@ export function RfpListPage({ title, subtitle, rfps }: RfpListPageProps) {
                     <div className="relative flex flex-col gap-5">
                         <div className="flex flex-col gap-4 lg:flex-row">
                             <div className="flex flex-1 flex-col gap-0.5">
-                                <p className="text-lg font-bold text-primary">{title}</p>
-                                <p className="text-sm font-medium text-tertiary">{subtitle}</p>
+                                <p className="body-lg font-bold text-primary">{title}</p>
+                                <p className="body-sm text-tertiary">{subtitle}</p>
                             </div>
                             <div className="flex flex-col gap-4 lg:flex-row">
                                 <div className="flex items-start gap-3">
@@ -135,7 +135,7 @@ export function RfpListPage({ title, subtitle, rfps }: RfpListPageProps) {
                                 <Table.Head id="title" isRowHeader label="1-100 of 2,658 results" className="w-95 font-bold" />
                                 <Table.Head id="description" label="" contentAlign="end" className="w-full min-w-0 font-bold">
                                     <Button iconLeading={ChevronLeft} color="tertiary" />
-                                    <p className="text-xs font-semibold whitespace-nowrap text-quaternary uppercase">Page 1 of 10</p>
+                                    <p className="overline-xs whitespace-nowrap text-quaternary">Page 1 of 10</p>
                                     <Button iconLeading={ChevronRight} color="tertiary" />
                                 </Table.Head>
                             </Table.Header>
@@ -156,18 +156,18 @@ export function RfpListPage({ title, subtitle, rfps }: RfpListPageProps) {
                                             >
                                                 <div className="flex max-w-full min-w-0 flex-col gap-1">
                                                     <div className="flex min-w-0 items-start justify-between gap-2">
-                                                        <span className="min-w-0 leading-snug font-bold wrap-break-word whitespace-normal text-primary">
+                                                        <span className="body-sm min-w-0 leading-snug font-bold wrap-break-word whitespace-normal text-primary">
                                                             {rfp.title}
                                                         </span>
                                                         <Badge type="modern" color="gray" size="sm" className="shrink-0">
                                                             {getDueDaysLabel(rfp.dueDate)}
                                                         </Badge>
                                                     </div>
-                                                    <span className="text-sm font-medium text-tertiary">{rfp.agency}</span>
+                                                    <span className="body-sm text-tertiary">{rfp.agency}</span>
                                                 </div>
                                             </Table.Cell>
                                             <Table.Cell className="align-top">
-                                                <p className="text-sm leading-snug font-medium whitespace-normal text-tertiary">{rfp.description}</p>
+                                                <p className="body-sm leading-snug whitespace-normal text-tertiary">{rfp.description}</p>
                                             </Table.Cell>
                                         </Table.Row>
                                     );
@@ -195,8 +195,8 @@ export function RfpListPage({ title, subtitle, rfps }: RfpListPageProps) {
                         <DetailPanel.Header onClose={handleDeselect}>
                             <div className="flex w-full items-start justify-between">
                                 <div className="flex flex-col gap-1">
-                                    <h2 className="text-lg font-bold text-primary">{selectedRfp.title}</h2>
-                                    <p className="text-sm font-medium text-tertiary">{selectedRfp.agency}</p>
+                                    <h2 className="body-lg font-bold text-primary">{selectedRfp.title}</h2>
+                                    <p className="body-sm text-tertiary">{selectedRfp.agency}</p>
                                 </div>
                                 <div className="flex items-center gap-2">
                                     <Button iconLeading={Star01} color="secondary" size="sm" shortcut="Y" onClick={() => handleStatusChange(Status.Saved)}>
@@ -249,14 +249,14 @@ export function RfpListPage({ title, subtitle, rfps }: RfpListPageProps) {
 
                                 {/* Description */}
                                 <section>
-                                    <h3 className="text-sm font-bold text-primary">Description</h3>
-                                    <p className="mt-2 text-sm leading-relaxed font-medium text-tertiary">{selectedRfp.description}</p>
+                                    <h3 className="body-sm font-bold text-primary">Description</h3>
+                                    <p className="mt-2 body-sm leading-relaxed text-tertiary">{selectedRfp.description}</p>
                                 </section>
 
                                 {/* Categories */}
                                 {selectedRfp.categories && selectedRfp.categories.length > 0 && (
                                     <section>
-                                        <h3 className="text-sm font-bold text-primary">Categories</h3>
+                                        <h3 className="body-sm font-bold text-primary">Categories</h3>
                                         <div className="mt-2 flex flex-wrap gap-1.5">
                                             {selectedRfp.categories.map((cat) => (
                                                 <Badge key={cat} type="pill-color" color="gray" size="sm">
@@ -269,29 +269,29 @@ export function RfpListPage({ title, subtitle, rfps }: RfpListPageProps) {
 
                                 {/* Key dates card */}
                                 <section className="rounded-xl border border-secondary p-4">
-                                    <h3 className="flex items-center gap-2 text-sm font-bold text-primary">
+                                    <h3 className="flex items-center gap-2 body-sm font-bold text-primary">
                                         <CalendarCheck01 className="size-4 text-fg-quaternary" />
                                         Key Dates
                                     </h3>
                                     <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-3">
                                         <div>
-                                            <dt className="text-xs font-medium text-quaternary">Response Due</dt>
-                                            <dd className="mt-0.5 text-sm font-medium text-primary">
+                                            <dt className="body-xs text-quaternary">Response Due</dt>
+                                            <dd className="mt-0.5 body-sm text-primary">
                                                 {selectedRfp.dueDate.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })}
                                             </dd>
                                         </div>
                                         {selectedRfp.publishedAt && (
                                             <div>
-                                                <dt className="text-xs font-medium text-quaternary">Published</dt>
-                                                <dd className="mt-0.5 text-sm font-medium text-primary">
+                                                <dt className="body-xs text-quaternary">Published</dt>
+                                                <dd className="mt-0.5 body-sm text-primary">
                                                     {selectedRfp.publishedAt.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })}
                                                 </dd>
                                             </div>
                                         )}
                                         {selectedRfp.questionsDueDate && (
                                             <div>
-                                                <dt className="text-xs font-medium text-quaternary">Questions Due</dt>
-                                                <dd className="mt-0.5 text-sm font-medium text-primary">
+                                                <dt className="body-xs text-quaternary">Questions Due</dt>
+                                                <dd className="mt-0.5 body-sm text-primary">
                                                     {selectedRfp.questionsDueDate.toLocaleDateString("en-US", {
                                                         year: "numeric",
                                                         month: "short",
@@ -302,8 +302,8 @@ export function RfpListPage({ title, subtitle, rfps }: RfpListPageProps) {
                                         )}
                                         {selectedRfp.preBidConferenceAt && (
                                             <div>
-                                                <dt className="text-xs font-medium text-quaternary">Pre-Bid Conference</dt>
-                                                <dd className="mt-0.5 text-sm font-medium text-primary">
+                                                <dt className="body-xs text-quaternary">Pre-Bid Conference</dt>
+                                                <dd className="mt-0.5 body-sm text-primary">
                                                     {selectedRfp.preBidConferenceAt.toLocaleDateString("en-US", {
                                                         year: "numeric",
                                                         month: "short",
@@ -321,12 +321,12 @@ export function RfpListPage({ title, subtitle, rfps }: RfpListPageProps) {
                                     selectedRfp.procurementMethod ||
                                     selectedRfp.setAside) && (
                                     <section className="rounded-xl border border-secondary p-4">
-                                        <h3 className="text-sm font-bold text-primary">Contract Details</h3>
+                                        <h3 className="body-sm font-bold text-primary">Contract Details</h3>
                                         <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-3">
                                             {selectedRfp.estimatedValueUsd && (
                                                 <div>
-                                                    <dt className="text-xs font-medium text-quaternary">Estimated Value</dt>
-                                                    <dd className="mt-0.5 text-sm font-medium text-primary">
+                                                    <dt className="body-xs text-quaternary">Estimated Value</dt>
+                                                    <dd className="mt-0.5 body-sm text-primary">
                                                         {selectedRfp.estimatedValueUsd.toLocaleString("en-US", {
                                                             style: "currency",
                                                             currency: "USD",
@@ -337,19 +337,19 @@ export function RfpListPage({ title, subtitle, rfps }: RfpListPageProps) {
                                             )}
                                             {selectedRfp.contractTermSummary && (
                                                 <div>
-                                                    <dt className="text-xs font-medium text-quaternary">Term</dt>
-                                                    <dd className="mt-0.5 text-sm font-medium text-primary">{selectedRfp.contractTermSummary}</dd>
+                                                    <dt className="body-xs text-quaternary">Term</dt>
+                                                    <dd className="mt-0.5 body-sm text-primary">{selectedRfp.contractTermSummary}</dd>
                                                 </div>
                                             )}
                                             {selectedRfp.procurementMethod && (
                                                 <div>
-                                                    <dt className="text-xs font-medium text-quaternary">Evaluation Method</dt>
-                                                    <dd className="mt-0.5 text-sm font-medium text-primary">{selectedRfp.procurementMethod}</dd>
+                                                    <dt className="body-xs text-quaternary">Evaluation Method</dt>
+                                                    <dd className="mt-0.5 body-sm text-primary">{selectedRfp.procurementMethod}</dd>
                                                 </div>
                                             )}
                                             {selectedRfp.setAside && (
                                                 <div>
-                                                    <dt className="text-xs font-medium text-quaternary">Set-Aside</dt>
+                                                    <dt className="body-xs text-quaternary">Set-Aside</dt>
                                                     <dd className="mt-0.5">
                                                         <BadgeWithDot color="brand" type="pill-color" size="sm">
                                                             {selectedRfp.setAside}
@@ -364,7 +364,7 @@ export function RfpListPage({ title, subtitle, rfps }: RfpListPageProps) {
                                 {/* NAICS codes */}
                                 {selectedRfp.industryCodes && selectedRfp.industryCodes.length > 0 && (
                                     <section>
-                                        <h3 className="text-sm font-bold text-primary">NAICS Codes</h3>
+                                        <h3 className="body-sm font-bold text-primary">NAICS Codes</h3>
                                         <div className="mt-2 flex flex-wrap gap-1.5">
                                             {selectedRfp.industryCodes.map((code) => (
                                                 <Badge key={code} type="modern" color="gray" size="sm">
@@ -378,23 +378,23 @@ export function RfpListPage({ title, subtitle, rfps }: RfpListPageProps) {
                                 {/* Contact card */}
                                 {(selectedRfp.contactName || selectedRfp.contactEmail || selectedRfp.contactPhone) && (
                                     <section className="rounded-xl border border-secondary p-4">
-                                        <h3 className="flex items-center gap-2 text-sm font-bold text-primary">
+                                        <h3 className="flex items-center gap-2 body-sm font-bold text-primary">
                                             <User01 className="size-4 text-fg-quaternary" />
                                             Point of Contact
                                         </h3>
                                         <div className="mt-3 flex flex-col gap-2">
-                                            {selectedRfp.contactName && <p className="text-sm font-medium text-primary">{selectedRfp.contactName}</p>}
+                                            {selectedRfp.contactName && <p className="body-sm text-primary">{selectedRfp.contactName}</p>}
                                             {selectedRfp.contactEmail && (
                                                 <a
                                                     href={`mailto:${selectedRfp.contactEmail}`}
-                                                    className="flex items-center gap-2 text-sm font-medium text-brand-secondary hover:underline"
+                                                    className="flex items-center gap-2 body-sm text-brand-secondary hover:underline"
                                                 >
                                                     <Mail01 className="size-3.5 text-fg-brand-secondary" />
                                                     {selectedRfp.contactEmail}
                                                 </a>
                                             )}
                                             {selectedRfp.contactPhone && (
-                                                <span className="flex items-center gap-2 text-sm font-medium text-primary">
+                                                <span className="flex items-center gap-2 body-sm text-primary">
                                                     <Phone className="size-3.5 text-fg-quaternary" />
                                                     {selectedRfp.contactPhone}
                                                 </span>

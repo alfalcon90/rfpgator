@@ -22,7 +22,7 @@ const PaginationItem = ({ value, rounded, isCurrent }: { value: number; rounded?
             isCurrent={isCurrent}
             className={({ isSelected }) =>
                 cx(
-                    "flex size-9 cursor-pointer items-center justify-center p-3 text-sm font-medium text-quaternary outline-focus-ring transition duration-100 ease-linear hover:bg-primary_hover hover:text-secondary focus-visible:z-10 focus-visible:bg-primary_hover focus-visible:outline-2 focus-visible:outline-offset-2",
+                    "flex size-9 cursor-pointer items-center justify-center p-3 body-sm text-quaternary outline-focus-ring transition duration-100 ease-linear hover:bg-primary_hover hover:text-secondary focus-visible:z-10 focus-visible:bg-primary_hover focus-visible:outline-2 focus-visible:outline-offset-2",
                     rounded ? "rounded-full" : "rounded-lg",
                     isSelected && "bg-primary_hover text-secondary",
                 )
@@ -278,7 +278,7 @@ export const PaginationCardMinimal = ({
                         align === "left" && "order-last ml-auto flex-row-reverse",
                     )}
                 >
-                    <span className="text-sm font-medium text-fg-secondary">
+                    <span className="body-sm text-fg-secondary">
                         Page {page} of {total}
                     </span>
                     <Select
@@ -397,7 +397,7 @@ export const PaginationCardAdvanced = ({
                 className={cx("flex items-center gap-3", align === "center" && "justify-between")}
             >
                 <div className={cx("hidden items-center gap-2 md:flex", align === "center" && "order-last")}>
-                    <span className="text-sm font-medium whitespace-nowrap text-secondary">Rows per page</span>
+                    <span className="body-sm whitespace-nowrap text-secondary">Rows per page</span>
                     <Select
                         aria-label="Page Size"
                         value={pageSize}

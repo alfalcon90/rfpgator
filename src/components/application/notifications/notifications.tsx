@@ -56,7 +56,7 @@ export const IconNotification = ({
 
             <div className={cx("flex flex-1 flex-col gap-3 md:pr-8", color !== "default" && "md:pt-0.5", showProgress && "gap-4")}>
                 <div className="flex flex-col gap-1">
-                    <p className="text-sm font-semibold text-fg-primary">{title}</p>
+                    <p className="body-sm font-semibold text-fg-primary">{title}</p>
                     <p className="text-sm text-fg-secondary">{description}</p>
                 </div>
 
@@ -115,7 +115,7 @@ export const AvatarNotification = ({
             <div className="flex flex-col gap-3 pr-8">
                 <div className="flex flex-col gap-1">
                     <div className="flex items-center gap-2">
-                        <p className="text-sm font-semibold text-fg-primary">{name}</p>
+                        <p className="body-sm font-semibold text-fg-primary">{name}</p>
                         <span className="text-sm text-fg-quaternary">{date}</span>
                     </div>
                     <p className="text-sm text-fg-secondary">{content}</p>
@@ -180,7 +180,7 @@ export const ImageNotification = ({
 
             <div className="flex flex-col gap-4 rounded-r-xl bg-primary_alt md:gap-3 md:p-4 md:pl-5 md:ring-1 md:ring-secondary_alt">
                 <div className="flex flex-col gap-1 pr-8">
-                    <p className="text-sm font-semibold text-fg-primary">{title}</p>
+                    <p className="body-sm font-semibold text-fg-primary">{title}</p>
                     <p className="text-sm text-fg-secondary">{description}</p>
                 </div>
 

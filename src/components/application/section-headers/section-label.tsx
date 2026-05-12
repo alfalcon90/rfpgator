@@ -7,11 +7,11 @@ import { cx } from "@/utils/cx";
 
 const styles = {
     sm: {
-        heading: "text-sm font-semibold gap-0.5",
+        heading: "body-sm font-semibold gap-0.5",
         subheading: "text-sm",
     },
     md: {
-        heading: "text-md font-semibold gap-1",
+        heading: "body-md font-semibold gap-1",
         subheading: "text-md",
     },
 };

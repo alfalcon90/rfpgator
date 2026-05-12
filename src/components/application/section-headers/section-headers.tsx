@@ -22,7 +22,7 @@ const SectionHeaderActions = (props: ComponentPropsWithRef<"div">) => (
 );
 
 const SectionHeaderHeading = (props: ComponentPropsWithRef<"h2">) => (
-    <h2 {...props} className={cx("text-md font-semibold text-primary", props.className)}>
+    <h2 {...props} className={cx("body-md font-semibold text-primary", props.className)}>
         {props.children}
     </h2>
 );
