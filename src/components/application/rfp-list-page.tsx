@@ -132,8 +132,8 @@ export function RfpListPage({ title, subtitle, rfps }: RfpListPageProps) {
                             className="table-fixed bg-primary"
                         >
                             <Table.Header className="bg-secondary">
-                                <Table.Head id="title" isRowHeader label="1-100 of 2,658 results" className="w-95 font-bold" />
-                                <Table.Head id="description" label="" contentAlign="end" className="w-full min-w-0 font-bold">
+                                <Table.Head id="result-count" isRowHeader label="1-100 of 2,658 results" className="w-95 font-bold" />
+                                <Table.Head id="pagination" label="" contentAlign="end" className="w-full min-w-0 font-bold">
                                     <Button iconLeading={ChevronLeft} color="tertiary" />
                                     <p className="overline-xs whitespace-nowrap text-quaternary">Page 1 of 10</p>
                                     <Button iconLeading={ChevronRight} color="tertiary" />

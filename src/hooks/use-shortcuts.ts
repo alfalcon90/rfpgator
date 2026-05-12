@@ -33,10 +33,12 @@ export function useShortcuts<T extends { id: string }>({ items, selectedId, onSe
 
             if (e.key === "ArrowDown") {
                 e.preventDefault();
+                e.stopPropagation();
                 const nextIndex = Math.min(currentIndex + 1, items.length - 1);
                 onSelect(items[nextIndex].id);
             } else if (e.key === "ArrowUp") {
                 e.preventDefault();
+                e.stopPropagation();
                 const prevIndex = Math.max(currentIndex - 1, 0);
                 onSelect(items[prevIndex].id);
             } else if (e.key === "Escape") {
@@ -50,7 +52,7 @@ export function useShortcuts<T extends { id: string }>({ items, selectedId, onSe
             }
         };
 
-        document.addEventListener("keydown", handleKeyDown);
-        return () => document.removeEventListener("keydown", handleKeyDown);
+        document.addEventListener("keydown", handleKeyDown, true);
+        return () => document.removeEventListener("keydown", handleKeyDown, true);
     }, [items, selectedId, onSelect, shortcuts]);
 }

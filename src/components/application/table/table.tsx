@@ -1,7 +1,7 @@
 "use client";
 
 import type { ComponentPropsWithRef, HTMLAttributes, ReactNode, Ref, TdHTMLAttributes, ThHTMLAttributes } from "react";
-import { createContext, isValidElement, useContext } from "react";
+import { createContext, isValidElement, useCallback, useContext } from "react";
 import { ArrowDown, ChevronSelectorVertical, Copy01, Edit01, HelpCircle, Trash01 } from "@untitledui/icons";
 import type {
     CellProps as AriaCellProps,
@@ -173,8 +173,14 @@ interface TableHeadProps extends AriaColumnProps, Omit<ThHTMLAttributes<HTMLTabl
 const TableHead = ({ className, tooltip, label, children, contentAlign, ...props }: TableHeadProps) => {
     const { selectionBehavior } = useTableOptions();
 
+    // Disable focus on the header cell
+    const noFocusRef = useCallback((el: HTMLTableCellElement | null) => {
+        if (el) el.focus = () => {};
+    }, []);
+
     return (
         <AriaColumn
+            ref={noFocusRef}
             {...props}
             className={(state) =>
                 cx(
